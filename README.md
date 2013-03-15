@@ -1,4 +1,4 @@
-zorba
+Project Zorba
 =====
 
 Zorba is an Open Source Runtime Job Submission Project. Zorba enables you to register your jobs, and then send requests to run those jobs. Once job execution is completed, it will sned you a response back. You can also monitor the job progress using the web interface it provides. 
