@@ -1,6 +1,7 @@
 package com.bbytes.zorba.messaging;
 
 import com.bbytes.zorba.jobworker.domain.Priority;
+import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
 import com.bbytes.zorba.messaging.exception.MessagingException;
 
 /**
@@ -24,5 +25,20 @@ public interface IReceiver {
 	 * @throws MessagingException
 	 */
 	public void receive(Priority priorityQueue) throws MessagingException;
+	
+	/**
+	 * Sends a response back to the response queue
+	 * @throws MessagingException
+	 */
+	public void sendResponse(ZorbaResponse response, String queueName) throws MessagingException;
+	
+	/**
+	 * Sends a response back to the response queue
+	 * 
+	 * @param priorityQueue
+	 * @throws MessagingException
+	 */
+	public void sendResponse(ZorbaResponse response, Priority priorityQueue) throws MessagingException;
+	
 
 }

@@ -31,4 +31,19 @@ public interface ISender {
 	 * @throws MessagingException
 	 */
 	void send(final ZorbaRequest request, String queueName) throws MessagingException;
+	
+	
+	/**
+	 * Receives the response from the response queue
+	 * @param queueName
+	 * @throws MessagingException
+	 */
+	void receiveResponse(String queueName) throws MessagingException;
+	
+	/**
+	 * Receives the response from the response queue by priority
+	 * @param queueName
+	 * @throws MessagingException
+	 */
+	void receiveResponse(Priority priorityQueue) throws MessagingException ;
 }
