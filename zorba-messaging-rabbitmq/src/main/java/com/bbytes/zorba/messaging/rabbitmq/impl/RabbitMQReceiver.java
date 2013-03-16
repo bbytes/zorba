@@ -1,6 +1,6 @@
 package com.bbytes.zorba.messaging.rabbitmq.impl;
 
-import com.bbytes.zorba.jobworker.domain.Priority;
+import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
 import com.bbytes.zorba.messaging.IReceiver;
 import com.bbytes.zorba.messaging.exception.MessagingException;

@@ -16,7 +16,7 @@
 
 	<name>zorba-job-worker-core</name>
 	<url>http://maven.apache.org</url>
-	
+
 	<description>
 		The project for Zorba Job Worker Core. This project will have Request-Response Model and 
 		common implementations that will be used by web server, job worker and other client projects 
@@ -31,6 +31,11 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.bbytes</groupId>
+			<artifactId>zorba-domain</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>

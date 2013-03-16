@@ -5,6 +5,7 @@ package com.bbytes.zorba.jobworker.domain.impl;
 
 import java.util.Map;
 
+import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 
 /**
@@ -20,7 +21,7 @@ public class ZorbaRequestImpl implements ZorbaRequest {
 	private String jobName;
 	private String queueName;
 	private Map<String, ?> data;
-	private int priority;
+	private Priority priority;
 	private String type;
 
 	public String getId() {
@@ -55,11 +56,11 @@ public class ZorbaRequestImpl implements ZorbaRequest {
 		this.data = data;
 	}
 
-	public int getPriority() {
+	public Priority getPriority() {
 		return priority;
 	}
 
-	public void setPriority(int priority) {
+	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 

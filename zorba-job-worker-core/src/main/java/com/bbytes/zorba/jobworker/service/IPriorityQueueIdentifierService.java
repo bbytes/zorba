@@ -3,7 +3,8 @@
  */
 package com.bbytes.zorba.jobworker.service;
 
-import com.bbytes.zorba.jobworker.domain.Priority;
+import com.bbytes.zorba.domain.Priority;
+
 
 /**
  * An interface that will return the name of the priority queue based on the Priority

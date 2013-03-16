@@ -25,7 +25,7 @@ public interface IEntity extends Serializable {
 	 * @param id
 	 * @return
 	 */
-	String getId(String id);
+	String getId();
 
 	/**
 	 * Gets the date of creation of this entity

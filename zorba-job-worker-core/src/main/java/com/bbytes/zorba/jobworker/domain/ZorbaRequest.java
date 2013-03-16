@@ -5,6 +5,8 @@ package com.bbytes.zorba.jobworker.domain;
 
 import java.util.Map;
 
+import com.bbytes.zorba.domain.Priority;
+
 /**
  * The interface for a ZorbaRequest. This encapsulates the data sent by the
  * clients
@@ -49,7 +51,7 @@ public interface ZorbaRequest {
 	 * Sets the priority from the Priority enum, {@link Priority}
 	 * @param priority
 	 */
-	void setPriority(int priority);
+	void setPriority(Priority priority);
 
 	/**
 	 * Sets the type of the request
@@ -87,7 +89,7 @@ public interface ZorbaRequest {
 	 * 
 	 * @return
 	 */
-	int getPriority();
+	Priority getPriority();
 
 	/**
 	 * Returns the type

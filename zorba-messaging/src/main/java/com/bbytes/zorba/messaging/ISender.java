@@ -3,7 +3,7 @@
  */
 package com.bbytes.zorba.messaging;
 
-import com.bbytes.zorba.jobworker.domain.Priority;
+import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.messaging.exception.MessagingException;
 

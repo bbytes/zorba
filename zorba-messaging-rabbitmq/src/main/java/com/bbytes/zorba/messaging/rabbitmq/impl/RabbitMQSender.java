@@ -6,7 +6,7 @@ package com.bbytes.zorba.messaging.rabbitmq.impl;
 import org.springframework.amqp.rabbit.core.RabbitOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.bbytes.zorba.jobworker.domain.Priority;
+import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.messaging.ISender;
 import com.bbytes.zorba.messaging.exception.MessagingException;

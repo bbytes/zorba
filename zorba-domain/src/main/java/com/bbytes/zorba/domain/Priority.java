@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.bbytes.zorba.jobworker.domain;
+package com.bbytes.zorba.domain;
 
 /**
  * An {@link Enum} for priority of the queues
