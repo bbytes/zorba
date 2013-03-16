@@ -29,8 +29,6 @@ public class RabbitMQSender implements IRabbitMQSender {
 	 */
 	public void send(ZorbaRequest request, Priority priority)
 			throws MessagingException {
-		rabbitOperations.convertAndSend(message)
-
 	}
 
 	/* (non-Javadoc)
