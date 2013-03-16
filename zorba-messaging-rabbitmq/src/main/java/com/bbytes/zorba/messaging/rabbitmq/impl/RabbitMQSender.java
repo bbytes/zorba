@@ -3,6 +3,9 @@
  */
 package com.bbytes.zorba.messaging.rabbitmq.impl;
 
+import org.springframework.amqp.rabbit.core.RabbitOperations;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.bbytes.zorba.jobworker.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.messaging.ISender;
@@ -17,13 +20,16 @@ import com.bbytes.zorba.messaging.rabbitmq.IRabbitMQSender;
  *
  */
 public class RabbitMQSender implements IRabbitMQSender {
+	
+	@Autowired
+	private RabbitOperations rabbitOperations;
 
 	/* (non-Javadoc)
 	 * @see com.bbytes.zorba.messaging.ISender#send(com.bbytes.zorba.jobworker.domain.ZorbaRequest, com.bbytes.zorba.jobworker.domain.Priority)
 	 */
 	public void send(ZorbaRequest request, Priority priority)
 			throws MessagingException {
-		// TODO Auto-generated method stub
+		rabbitOperations.convertAndSend(message)
 
 	}
 
