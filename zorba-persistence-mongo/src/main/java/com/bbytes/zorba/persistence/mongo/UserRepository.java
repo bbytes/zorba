@@ -19,7 +19,7 @@ import com.bbytes.zorba.domain.mongo.User;
  * @author Dhanush Gopinath
  * 
  */
-public interface IUserRepository extends
+public interface UserRepository extends
 		PagingAndSortingRepository<User, String> {
 
 	/**

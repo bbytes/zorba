@@ -10,32 +10,28 @@
 	</parent>
 
 	<groupId>com.bbytes</groupId>
-	<artifactId>zorba-job-worker-core</artifactId>
+	<artifactId>zorba-testing</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>zorba-job-worker-core</name>
-	<url>http://maven.apache.org</url>
-
 	<description>
-		The project for Zorba Job Worker Core. This project will have Request-Response Model and 
-		common implementations that will be used by web server, job worker and other client projects 
+		Zorba testing project to be used for mockup testing and creating test domain objects
 	</description>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<name>zorba-testing</name>
+	<url>http://maven.apache.org</url>
 
 	<dependencies>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
 			<groupId>com.bbytes</groupId>
-			<artifactId>zorba-domain</artifactId>
+			<artifactId>zorba-job-worker-core</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
+
 	</dependencies>
 </project>

@@ -10,18 +10,24 @@
 	</parent>
 
 	<groupId>com.bbytes</groupId>
-	<artifactId>zorba-persistence-mongo</artifactId>
+	<artifactId>zorba-testing-domain-mongo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>zorba-persistence-mongo</name>
-	<url>http://maven.apache.org</url>
-
 	<description>
-		Project for implementation of persistence api's for MongoDB;
+		Zorba testing project for mongo domain to be used for mockup testing and creating test domain objects
 	</description>
 
+	<name>zorba-testing</name>
+	<url>http://maven.apache.org</url>
+
 	<dependencies>
+		<!-- The Embedded Mongo DB Database for testing -->
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -35,33 +41,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-mongodb</artifactId>
-		</dependency>
-
-		<!-- Zorba dependencies -->
-		<dependency>
-			<groupId>com.bbytes</groupId>
-			<artifactId>zorba-persistence</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-domain-mongo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.bbytes</groupId>
-			<artifactId>zorba-testing-persistence-mongo</artifactId>
+			<artifactId>zorba-testing</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
 </project>
