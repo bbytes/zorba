@@ -63,7 +63,7 @@
 				<artifactId>spring-aspects</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-config</artifactId>
@@ -79,17 +79,11 @@
 				<artifactId>spring-security-web</artifactId>
 				<version>${spring.security.version}</version>
 			</dependency>
-			
-<!-- 			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjrt</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.aspectj</groupId>
-				<artifactId>aspectjweaver</artifactId>
-				<version>${aspectj.version}</version>
-			</dependency> -->
+
+			<!-- <dependency> <groupId>org.aspectj</groupId> <artifactId>aspectjrt</artifactId> 
+				<version>${aspectj.version}</version> </dependency> <dependency> <groupId>org.aspectj</groupId> 
+				<artifactId>aspectjweaver</artifactId> <version>${aspectj.version}</version> 
+				</dependency> -->
 
 			<!-- Spring Data -->
 			<dependency>
@@ -103,7 +97,7 @@
 				<artifactId>spring-data-mongodb</artifactId>
 				<version>${spring.mongodata.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.springframework.data</groupId>
 				<artifactId>spring-data-commons</artifactId>
@@ -187,6 +181,12 @@
 				<version>${spring.version}</version>
 				<scope>test</scope>
 			</dependency>
+			<!-- Embedded mongodb for testing -->
+			<dependency>
+				<groupId>de.flapdoodle.embed</groupId>
+				<artifactId>de.flapdoodle.embed.mongo</artifactId>
+				<version>1.29</version>
+			</dependency>
 
 			<dependency>
 				<groupId>commons-logging</groupId>
@@ -246,7 +246,7 @@
 		<module>zorba-domain-mongo</module>
 		<module>zorba-persistence-mongo</module>
 		<module>zorba-messaging-rabbitmq</module>
-		
+
 		<module>zorba-testing-domain-mongo</module>
 		<module>zorba-testing-persistence-mongo</module>
 

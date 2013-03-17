@@ -20,19 +20,11 @@
 
     <context:annotation-config />
 
-    <import resource="classpath*:spring/zorba-domain-mongo-context.xml" />
+    <import resource="classpath*:spring/zorba-testing-domain-mongo-context.xml" />
 
     <mongo:repositories
         base-package="com.bbytes.zorba.persistence.mongo"
         mongo-template-ref="mongoTemplate" >
 
     </mongo:repositories>
-
-    <!--
-    <mongo:repositories base-package="es.mi.casetools.praetor.persistence.springdata.repositories" 
-        mongo-template-ref="mongoTemplate" repository-impl-postfix="Impl">                  
-        <repository:exclude-filter type="annotation" expression="org.springframework.data.repository.NoRepositoryBean"/>    
-    </mongo:repositories>
-    -->
-
 </beans>

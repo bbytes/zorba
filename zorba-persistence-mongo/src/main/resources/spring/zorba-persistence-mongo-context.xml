@@ -26,17 +26,6 @@
         base-package="com.bbytes.zorba.persistence.mongo"
         mongo-template-ref="mongoTemplate"
         repository-impl-postfix="Impl" >
-
-        <repository:exclude-filter
-            expression="org.springframework.data.repository.NoRepositoryBean"
-            type="annotation" />
     </mongo:repositories>
-
-    <!--
-    <mongo:repositories base-package="es.mi.casetools.praetor.persistence.springdata.repositories" 
-        mongo-template-ref="mongoTemplate" repository-impl-postfix="Impl">                  
-        <repository:exclude-filter type="annotation" expression="org.springframework.data.repository.NoRepositoryBean"/>    
-    </mongo:repositories>
-    -->
 
 </beans>

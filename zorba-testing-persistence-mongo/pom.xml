@@ -29,8 +29,13 @@
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
-			<artifactId>zorba-testing</artifactId>
+			<artifactId>zorba-testing-domain-mongo</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>de.flapdoodle.embed</groupId>
+			<artifactId>de.flapdoodle.embed.mongo</artifactId>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 </project>
