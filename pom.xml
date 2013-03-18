@@ -123,6 +123,13 @@
 				<artifactId>log4j</artifactId>
 				<version>1.2.16</version>
 			</dependency>
+			
+			<!-- Java Mail API -->
+			<dependency>
+				<groupId>javax.mail</groupId>
+				<artifactId>mail</artifactId>
+				<version>1.4.3</version>
+			</dependency>
 
 			<!-- Misc -->
 			<dependency>
