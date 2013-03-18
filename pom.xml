@@ -37,6 +37,7 @@
 		<spring.mongodata.version>1.2.0.RELEASE</spring.mongodata.version>
 		<jetty.jsp.version>8.1.4.v20120524</jetty.jsp.version>
 		<aspectj.version>1.6.11</aspectj.version>
+		<resteasy.version>2.2.1.GA</resteasy.version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,6 +57,11 @@
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
@@ -130,6 +136,16 @@
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
 				<version>2.1</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-spring</artifactId>
+				<version>${resteasy.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jboss.resteasy</groupId>
+				<artifactId>resteasy-jackson-provider</artifactId>
+				<version>${resteasy.version}</version>
 			</dependency>
 
 			<!-- JETTY DEPENDENCIES -->
