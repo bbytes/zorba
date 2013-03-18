@@ -22,5 +22,18 @@
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="embeddedMongoDBFactory" />
 	</bean>
+	<bean id="zorbaRequest" class="com.bbytes.zorba.jobworker.domain.impl.ZorbaRequestImpl"
+		scope="prototype">
+		<property name="queueName" value="${test.zorbareq.queueName}" />
+		<property name="jobName" value="${test.zorbareq.jobName}" />
+		<property name="priority" value="${test.zorbareq.priority}" />
+		<property name="type" value="${test.zorbareq.type}" />
+	</bean>
+	<bean id="zorbaResponse"
+		class="com.bbytes.zorba.jobworker.domain.impl.ZorbaResponseImpl"
+		scope="prototype">
+		<property name="jobName" value="${test.zorbareq.jobName}" />
+		<property name="type" value="${test.zorbareq.type}" />
+	</bean>
 </beans>
 

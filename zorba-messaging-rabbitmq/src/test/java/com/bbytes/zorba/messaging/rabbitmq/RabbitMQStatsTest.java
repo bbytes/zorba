@@ -37,7 +37,7 @@ public class RabbitMQStatsTest {
 	}
 
 	@Test
-	public void testSendZorbaRequestPriority() {
+	public void testGetQueueNames() {
 		List<String> queueNames = queueStatsService.getQueueNames();
 		Assert.assertNotNull(queueNames);
 	}

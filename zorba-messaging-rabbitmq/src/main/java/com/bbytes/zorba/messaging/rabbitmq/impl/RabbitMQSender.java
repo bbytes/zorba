@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
+import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
 import com.bbytes.zorba.jobworker.service.IPriorityQueueIdentifierService;
 import com.bbytes.zorba.messaging.ISender;
 import com.bbytes.zorba.messaging.exception.MessagingException;
@@ -28,32 +29,34 @@ public class RabbitMQSender implements IRabbitMQSender {
 	@Autowired
 	private IPriorityQueueIdentifierService priorityQueueIdentifierService;
 
-	/* (non-Javadoc)
-	 * @see com.bbytes.zorba.messaging.ISender#send(com.bbytes.zorba.jobworker.domain.ZorbaRequest, com.bbytes.zorba.jobworker.domain.Priority)
-	 */
+
 	public void send(ZorbaRequest request, Priority priority)
 			throws MessagingException {
-		
+		if(request!=null && priority!=null) {
+			String queueName = priorityQueueIdentifierService.getQueueName(priority);
+			rabbitOperations.convertAndSend(queueName, request);
+		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.bbytes.zorba.messaging.ISender#send(com.bbytes.zorba.jobworker.domain.ZorbaRequest, java.lang.String)
-	 */
 	public void send(ZorbaRequest request, String queueName)
 			throws MessagingException {
-		// TODO Auto-generated method stub
-
+		if(request!=null && queueName!=null) {
+			rabbitOperations.convertAndSend(queueName, request);
+		}
 	}
 
-	public void receiveResponse(String queueName) throws MessagingException {
-		// TODO Auto-generated method stub
-		
+	public ZorbaResponse receiveResponse(String queueName) throws MessagingException {
+		ZorbaResponse response = (ZorbaResponse) rabbitOperations.receiveAndConvert(queueName);
+		return response;
 	}
 
-	public void receiveResponse(Priority priorityQueue)
+	public ZorbaResponse receiveResponse(Priority priority)
 			throws MessagingException {
-		// TODO Auto-generated method stub
-		
+		if( priority!=null) {
+			String queueName = priorityQueueIdentifierService.getQueueName(priority);
+			return receiveResponse(queueName);
+		}
+		return null;
 	}
 
 }

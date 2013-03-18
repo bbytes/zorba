@@ -31,7 +31,7 @@ public class EmbeddedServer {
 			server.setHandler(webAppContext);
 			server.start();
 			server.join();
-			System.out.println("Tache web server running....");
+			System.out.println("Zorba web server running....");
 			System.out.println("Enter :q and hit enter to quit: ");
 			while (true) {
 
