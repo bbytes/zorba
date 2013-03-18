@@ -56,27 +56,29 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 	}
 	
 	@Test
-	public void testSendZorbaRequestPriority() throws MessagingException {
+	public void testSendZorbaRequestPriority() throws MessagingException, InterruptedException {
 		Priority p = Priority.HIGH;
-//		String queueName = priorityQueueIdentifierService.getQueueName(p);
-//		long queueSize = statsService.getQueueMessageSize(queueName);
+		String queueName = priorityQueueIdentifierService.getQueueName(p);
+		long queueSize = statsService.getQueueMessageSize(queueName);
 		String id = UUID.randomUUID().toString();
 		zorbaRequest.setId(id);
 		sender.send(zorbaRequest,p);
-//		assertEquals(queueSize+1, statsService.getQueueMessageSize(queueName));
+		Thread.sleep(5000);
+		assertEquals(queueSize+1, statsService.getQueueMessageSize(queueName));
 		ZorbaRequest req = receiver.receive(p);
 		assertNotNull(req);
 		assertEquals(id, req.getId());
 	}
 
 	@Test
-	public void testSendZorbaRequestString() throws MessagingException {
+	public void testSendZorbaRequestString() throws MessagingException, InterruptedException {
 		Priority p = Priority.HIGH;
 		String queueName = priorityQueueIdentifierService.getQueueName(p);
 //		long queueSize = statsService.getQueueMessageSize(queueName);
 		String id = UUID.randomUUID().toString();
 		zorbaRequest.setId(id);
 		sender.send(zorbaRequest, queueName);
+		Thread.sleep(5000);
 //		assertEquals(queueSize+1, statsService.getQueueMessageSize(queueName));
 		ZorbaRequest req = receiver.receive(queueName);
 		assertNotNull(req);
@@ -85,7 +87,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 
 	@Test
 	public void testReceiveResponseString() throws MessagingException {
-		Priority p = Priority.HIGH;
+		Priority p = Priority.LOW;
 		String queueName = priorityQueueIdentifierService.getQueueName(p);
 		String id = UUID.randomUUID().toString();
 		zorbaResponse.setId(id);
@@ -97,7 +99,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 
 	@Test
 	public void testReceiveResponsePriority() throws MessagingException {
-		Priority p = Priority.HIGH;
+		Priority p = Priority.LOW;
 		String id = UUID.randomUUID().toString();
 		zorbaResponse.setId(id);
 		receiver.sendResponse(zorbaResponse, p);
