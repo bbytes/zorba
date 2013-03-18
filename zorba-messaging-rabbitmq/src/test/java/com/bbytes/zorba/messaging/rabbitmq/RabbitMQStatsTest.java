@@ -1,14 +1,17 @@
 package com.bbytes.zorba.messaging.rabbitmq;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bbytes.zorba.messaging.IQueueStatsService;
 import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
 
 /**
@@ -19,8 +22,12 @@ import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ={ "classpath*:/spring/zorba-messaging-test-context.xml" })
-public class RabbitMQSenderTest {
+public class RabbitMQStatsTest {
 
+	@Autowired
+	IQueueStatsService queueStatsService;
+	
+	
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -31,22 +38,10 @@ public class RabbitMQSenderTest {
 
 	@Test
 	public void testSendZorbaRequestPriority() {
-		fail("Not yet implemented");
+		List<String> queueNames = queueStatsService.getQueueNames();
+		Assert.assertNotNull(queueNames);
 	}
 
-	@Test
-	public void testSendZorbaRequestString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testReceiveResponseString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testReceiveResponsePriority() {
-		fail("Not yet implemented");
-	}
+	
 
 }

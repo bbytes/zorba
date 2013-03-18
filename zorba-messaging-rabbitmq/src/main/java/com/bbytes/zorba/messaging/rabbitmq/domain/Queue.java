@@ -16,6 +16,8 @@ package com.bbytes.zorba.messaging.rabbitmq.domain;
 import java.sql.Connection;
 import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * 
  * 
@@ -23,6 +25,7 @@ import java.util.Map;
  * 
  * @version
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Queue {
 
 	/**
@@ -102,7 +105,12 @@ public class Queue {
 	 * Bytes of memory consumed by the Erlang process for the queue, including stack, heap and
 	 * internal structures
 	 */
-	private long usedMemory;
+	private long memory;
+	
+	/**
+	 * Idle time information 
+	 */
+	private String idle_since;
 
 	/**
 	 *
@@ -222,12 +230,26 @@ public class Queue {
 		this.consumers = consumers;
 	}
 
-	public long getUsedMemory() {
-		return usedMemory;
+	public long getMemory() {
+		return memory;
 	}
 
-	public void setUsedMemory(long usedMemory) {
-		this.usedMemory = usedMemory;
+	public void setMemory(long memory) {
+		this.memory = memory;
+	}
+
+	/**
+	 * @return the idle_since
+	 */
+	public String getIdle_since() {
+		return idle_since;
+	}
+
+	/**
+	 * @param idle_since the idle_since to set
+	 */
+	public void setIdle_since(String idle_since) {
+		this.idle_since = idle_since;
 	}
 
 	public Object getBackingQueueStatus() {

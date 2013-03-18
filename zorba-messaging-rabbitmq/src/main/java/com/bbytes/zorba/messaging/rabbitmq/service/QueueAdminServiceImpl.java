@@ -14,11 +14,11 @@
 package com.bbytes.zorba.messaging.rabbitmq.service;
 
 import org.apache.log4j.Logger;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bbytes.zorba.messaging.IQueueAdminService;
-import com.bbytes.zorba.messaging.rabbitmq.domain.Queue;
 
 /**
  * 
@@ -34,6 +34,9 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 
 	@Autowired
 	private IQueueServiceRest queueServiceRest;
+	
+	@Autowired
+	private RabbitAdmin rabbitAdmin;
 
 	/*
 	 * (non-Javadoc)
@@ -43,9 +46,8 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 	@Override
 	public boolean createQueue(String queueName) {
 		try {
-			Queue queue = new Queue();
-			queue.setName(queueName);
-			queueServiceRest.putQueue(getVHost(), queueName, queue);
+			org.springframework.amqp.core.Queue queue  = new org.springframework.amqp.core.Queue(queueName,true);
+			rabbitAdmin.declareQueue(queue);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			return false;
@@ -62,7 +64,7 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 	@Override
 	public boolean deleteQueue(String queueName) {
 		try {
-			queueServiceRest.deleteQueue(getVHost(), queueName);
+			rabbitAdmin.deleteQueue(queueName);
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			return false;
