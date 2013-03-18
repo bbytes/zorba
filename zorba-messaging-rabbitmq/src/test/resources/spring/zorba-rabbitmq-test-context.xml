@@ -12,7 +12,8 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>	classpath:zorba-rabbitmq.properties</value>
+				<value> classpath*:zorba-testing.properties</value>
+				<value> classpath:zorba-rabbitmq.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -26,11 +27,17 @@
 		<constructor-arg value="${rabbitmq.ipaddress}" />
 	</bean>
 	
+	<!-- Request Queues -->
 	<rabbit:queue id="pq.critical" name="${priority.queue.critical}" />
 	<rabbit:queue id="pq.high" name="${priority.queue.high}" />
 	<rabbit:queue id="pq.medium" name="${priority.queue.medium}" />
 	<rabbit:queue id="pq.low" name="${priority.queue.low}" />
-	
+	<!-- Response Queues -->
+	<rabbit:queue id="pq.critical.reply" name="${priority.queue.critical.reply}" />
+	<rabbit:queue id="pq.high.reply" name="${priority.queue.high.reply}" />
+	<rabbit:queue id="pq.medium.reply" name="${priority.queue.medium.reply}" />
+	<rabbit:queue id="pq.low.reply" name="${priority.queue.low.reply}" />
+
 	<rabbit:admin id="amqpAdmin" auto-startup="true"
 		connection-factory="rabbitConnectionFactory" />
 
@@ -44,25 +51,14 @@
 		p:messageConverter-ref="jsonMessageConverter">
 	</bean>
 
-	<!-- <bean id="responseHandler" class="com.bbytes.webworker.impl.ResponseHandlerImpl" />
-
-	<bean id="errorHandler" class="com.bbytes.webworker.logging.LoggingErrorHandler" />
-
-	<bean id="producerService" class="com.bbytes.webworker.messaging.impl.ProducerServiceImpl">
-
-		<property name="defaultQueueName" value="${rabbitmq.work.queue}">
-		</property>
-
-		<property name="defaultReplyTo" value="${rabbitmq.work.reply.queue}">
-		</property>
-	</bean>
-
-	<listener-container concurrency="5"
-		connection-factory="rabbitConnectionFactory" error-handler="errorHandler"
-		message-converter="jsonMessageConverter" xmlns="http://www.springframework.org/schema/rabbit">
-
-		<listener method="handleWebWorkerResponse" queue-names="${rabbitmq.work.reply.queue}"
-			ref="responseHandler" />
-	</listener-container> -->
+	<!-- <bean id="responseHandler" class="com.bbytes.webworker.impl.ResponseHandlerImpl" 
+		/> <bean id="errorHandler" class="com.bbytes.webworker.logging.LoggingErrorHandler" 
+		/> <bean id="producerService" class="com.bbytes.webworker.messaging.impl.ProducerServiceImpl"> 
+		<property name="defaultQueueName" value="${rabbitmq.work.queue}"> </property> 
+		<property name="defaultReplyTo" value="${rabbitmq.work.reply.queue}"> </property> 
+		</bean> <listener-container concurrency="5" connection-factory="rabbitConnectionFactory" 
+		error-handler="errorHandler" message-converter="jsonMessageConverter" xmlns="http://www.springframework.org/schema/rabbit"> 
+		<listener method="handleWebWorkerResponse" queue-names="${rabbitmq.work.reply.queue}" 
+		ref="responseHandler" /> </listener-container> -->
 
 </beans>

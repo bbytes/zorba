@@ -35,7 +35,7 @@ public class RabbitMQAdminServiceTest {
 	}
 
 	@Test
-	public void testSendZorbaRequestPriority() {
+	public void testCreateDeleteQueue() {
 		boolean success = queueAdminService.createQueue("very.odd.name%$#@@");
 		Assert.assertTrue(success);
 		boolean deleteSuccess = queueAdminService.deleteQueue("very.odd.name%$#@@");

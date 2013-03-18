@@ -31,11 +31,30 @@ public class EmbeddedServerTest {
 
 			webAppContext.setServer(server);
 			server.setHandler(webAppContext);
-			server.start();
-			server.join();
-
+			Thread th = new Thread() {
+				
+				public void run() {
+					try {
+						server.start();
+						server.join();
+					} catch (Exception e) {
+						logger.error("Error when starting", e);
+					}
+				}
+			};
+			th.start();
+			
 		} catch (Exception e) {
 			logger.error("Error when starting", e);
+		}
+	}
+	
+	@Test
+	public void stopServer() {
+		try {
+			server.stop();
+		} catch (Exception e) {
+			logger.error("Error when stoping", e);
 		}
 	}
 }

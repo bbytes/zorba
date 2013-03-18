@@ -9,11 +9,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbytes.zorba.domain.Priority;
+import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 import com.bbytes.zorba.jobworker.service.IPriorityQueueIdentifierService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ={ "classpath:spring/zorba-job-worker-test-context.xml" })
-public class PriorityQueueIdentifierServiceTest {
+public class PriorityQueueIdentifierServiceTest extends ZorbaBaseTesting {
 	@Autowired
 	IPriorityQueueIdentifierService priorityQueueIdentifierService;
 	@Test

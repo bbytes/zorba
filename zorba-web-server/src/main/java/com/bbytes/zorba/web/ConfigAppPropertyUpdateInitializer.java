@@ -18,10 +18,10 @@ public class ConfigAppPropertyUpdateInitializer implements ApplicationContextIni
 		ConfigurableEnvironment environment = applicationContext.getEnvironment();
 		try {
 			environment.getPropertySources().addFirst(new ResourcePropertySource("classpath:zorbaConf/zorba_app.properties"));
-			LOG.info("Tache properties loaded");
+			LOG.info("Zorba properties loaded");
 		} catch (IOException e) {
 			// it's ok if the file is not there. we will just log that info.
-			LOG.info("Didn't find tacheConf/tache_app.properties loaded in classpath so not loading it in the AppContextInitialized");
+			LOG.info("Didn't find zorbaConf/zorba_app.properties loaded in classpath so not loading it in the AppContextInitialized");
 		}
 	}
 

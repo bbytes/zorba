@@ -6,6 +6,7 @@ package com.bbytes.zorba.messaging;
 
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
+import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
 import com.bbytes.zorba.messaging.exception.MessagingException;
 
 /**
@@ -37,14 +38,16 @@ public interface ISender {
 	/**
 	 * Receives the response from the response queue
 	 * @param queueName
+	 * @return TODO
 	 * @throws MessagingException
 	 */
-	void receiveResponse(String queueName) throws MessagingException;
+	ZorbaResponse receiveResponse(String queueName) throws MessagingException;
 	
 	/**
 	 * Receives the response from the response queue by priority
 	 * @param queueName
+	 * @return TODO
 	 * @throws MessagingException
 	 */
-	void receiveResponse(Priority priorityQueue) throws MessagingException ;
+	ZorbaResponse receiveResponse(Priority priority) throws MessagingException ;
 }

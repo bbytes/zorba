@@ -38,7 +38,6 @@ public class RabbitMQStatsTest {
 	}
 
 	@Test
-	public void testQueueNames() {
 		List<String> queueNames = queueStatsService.getQueueNames();
 		Assert.assertNotNull(queueNames);
 	}
