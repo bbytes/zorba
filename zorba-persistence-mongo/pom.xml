@@ -33,7 +33,10 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -58,10 +61,26 @@
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
-			<artifactId>zorba-testing-persistence-mongo</artifactId>
+			<artifactId>zorba-testing</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	
 </project>

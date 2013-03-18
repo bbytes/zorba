@@ -10,29 +10,17 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
-<!--     <bean
-		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<list>
-				<value>	classpath:zorba-testing.properties</value>
-			</list>
-		</property>
-	</bean> -->
-	
-	<!-- Bean declarations for Zorba Requests and Response -->
-	<bean id="zorbaRequest" class="com.bbytes.zorba.jobworker.domain.impl.ZorbaRequestImpl"
-		scope="prototype">
-		<property name="queueName" value="${test.zorbareq.queueName}" />
-		<property name="jobName" value="${test.zorbareq.jobName}" />
-		<property name="priority" value="${test.zorbareq.priority}" />
-		<property name="type" value="${test.zorbareq.type}" />
+	<context:spring-configured />
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.bbytes.zorba.domain.testing" />
+
+	<bean id="embeddedMongoDBFactory" class="com.bbytes.zorba.domain.testing.EmbeddedMongoDBFactory">
+		<constructor-arg name="databaseName" value="zorbaTest" />
 	</bean>
-	
-	<bean id="zorbaResponse"
-		class="com.bbytes.zorba.jobworker.domain.impl.ZorbaResponseImpl"
-		scope="prototype">
-		<property name="jobName" value="${test.zorbareq.jobName}" />
-		<property name="type" value="${test.zorbareq.type}" />
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="embeddedMongoDBFactory" />
 	</bean>
 </beans>
 

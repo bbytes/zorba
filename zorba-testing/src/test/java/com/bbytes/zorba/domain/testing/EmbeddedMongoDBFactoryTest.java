@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.mongodb.DB;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ={ "classpath*:spring/zorba-testing-domain-mongo-context.xml" })
+@ContextConfiguration(locations ={ "classpath*:spring/zorba-testing-context.xml" })
 public class EmbeddedMongoDBFactoryTest {
 	
 	@Autowired

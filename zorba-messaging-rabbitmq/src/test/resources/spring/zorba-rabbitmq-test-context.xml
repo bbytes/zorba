@@ -12,7 +12,6 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>	classpath*:zorba-testing.properties</value>
 				<value>	classpath:zorba-rabbitmq.properties</value>
 			</list>
 		</property>
@@ -26,11 +25,16 @@
 		p:username="${rabbitmq.username}">
 		<constructor-arg value="${rabbitmq.ipaddress}" />
 	</bean>
-
+	
+	<rabbit:queue id="pq.critical" name="${priority.queue.critical}" />
+	<rabbit:queue id="pq.high" name="${priority.queue.high}" />
+	<rabbit:queue id="pq.medium" name="${priority.queue.medium}" />
+	<rabbit:queue id="pq.low" name="${priority.queue.low}" />
+	
 	<rabbit:admin id="amqpAdmin" auto-startup="true"
 		connection-factory="rabbitConnectionFactory" />
 
-		<bean id="jsonMessageConverter"
+	<bean id="jsonMessageConverter"
 		class="org.springframework.amqp.support.converter.JsonMessageConverter" />
 
 	<!-- A template for sending messages and performing other commands to RabbitMQ -->
