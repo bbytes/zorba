@@ -1,5 +1,6 @@
 package com.bbytes.zorba.messaging.rabbitmq;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.After;
@@ -37,8 +38,18 @@ public class RabbitMQStatsTest {
 	}
 
 	@Test
-	public void testSendZorbaRequestPriority() {
+	public void testQueueNames() {
 		List<String> queueNames = queueStatsService.getQueueNames();
+		Assert.assertNotNull(queueNames);
+	}
+	
+	@Test
+	public void testQueueSize() {
+		List<String> queueNames = queueStatsService.getQueueNames();
+		for(String queueName: queueNames){
+			long size= queueStatsService.getQueueMessageSize(queueName);
+			System.out.println(size);
+		}
 		Assert.assertNotNull(queueNames);
 	}
 

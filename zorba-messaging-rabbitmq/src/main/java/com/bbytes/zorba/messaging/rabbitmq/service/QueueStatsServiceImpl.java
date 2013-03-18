@@ -115,7 +115,7 @@ public class QueueStatsServiceImpl implements IQueueStatsService {
 	 * @return
 	 */
 	public String getVHost() {
-		return "/";
+		return "%2F";
 	}
 
 }

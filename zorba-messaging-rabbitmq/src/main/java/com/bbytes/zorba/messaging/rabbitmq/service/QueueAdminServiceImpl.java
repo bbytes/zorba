@@ -98,6 +98,6 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 	 * @return
 	 */
 	public String getVHost() {
-		return "/";
+		return "%2F";
 	}
 }
