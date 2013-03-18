@@ -46,7 +46,6 @@ public class RabbitMQStatsTest {
 		List<String> queueNames = queueStatsService.getQueueNames();
 		for (String queueName : queueNames) {
 			long size = queueStatsService.getQueueMessageSize(queueName);
-			System.out.println(size);
 		}
 		
 		Assert.assertNotSame(0,queueStatsService.getTotalQueueSize());
