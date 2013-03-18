@@ -1,6 +1,5 @@
 package com.bbytes.zorba.messaging.rabbitmq;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.After;
@@ -26,7 +25,7 @@ import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
 public class RabbitMQStatsTest {
 
 	@Autowired
-	IQueueStatsService queueStatsService;
+	private IQueueStatsService queueStatsService;
 
 	@Before
 	public void setUp() throws Exception {
@@ -49,7 +48,10 @@ public class RabbitMQStatsTest {
 			long size = queueStatsService.getQueueMessageSize(queueName);
 			System.out.println(size);
 		}
-		Assert.assertNotNull(queueNames);
+		
+		Assert.assertNotSame(0,queueStatsService.getTotalQueueSize());
+		Assert.assertNotSame(0,queueStatsService.getPendingRequestSize());
+		
 	}
 
 }

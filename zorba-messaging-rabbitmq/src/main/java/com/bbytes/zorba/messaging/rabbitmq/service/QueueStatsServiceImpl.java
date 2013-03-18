@@ -75,7 +75,7 @@ public class QueueStatsServiceImpl implements IQueueStatsService {
 		List<Queue> queueList = queueServiceRest.getQueues();
 		if (queueList != null) {
 			for (Queue queue : queueList)
-				totalRequestSize = totalRequestSize + queue.getMessagesReady();
+				totalRequestSize = totalRequestSize + queue.getMessages_ready();
 		}
 
 		return totalRequestSize;
