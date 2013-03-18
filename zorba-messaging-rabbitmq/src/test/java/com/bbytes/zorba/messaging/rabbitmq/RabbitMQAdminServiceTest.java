@@ -1,7 +1,5 @@
 package com.bbytes.zorba.messaging.rabbitmq;
 
-import java.util.List;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -12,7 +10,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbytes.zorba.messaging.IQueueAdminService;
-import com.bbytes.zorba.messaging.IQueueStatsService;
 import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
 
 /**

@@ -17,7 +17,7 @@
 		Project for describing the interfaces for domain objects.
 	</description>
 	<name>zorba-domain</name>
-	
+
 	<url>http://maven.apache.org</url>
 
 	<dependencies>
@@ -26,5 +26,11 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+		</dependency>
+		
 	</dependencies>
 </project>

@@ -15,7 +15,7 @@ public interface IJob extends IEntity {
 
 	String getJobName();
 	
-	Class getJobClass();
+	Class<?> getJobClass();
 	
 	
 }
