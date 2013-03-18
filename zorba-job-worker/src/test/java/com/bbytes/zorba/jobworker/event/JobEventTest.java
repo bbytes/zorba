@@ -36,7 +36,7 @@ import com.bbytes.zorba.domain.JobEventType;
  * @version 0.0.1
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ={ "classpath*:/spring/zorba-jobworker-context.xml" })
+@ContextConfiguration(locations ={ "classpath*:/spring/zorba-job-worker-test-context.xml" })
 public class JobEventTest implements IJobEventListener{
 
 	@Autowired
