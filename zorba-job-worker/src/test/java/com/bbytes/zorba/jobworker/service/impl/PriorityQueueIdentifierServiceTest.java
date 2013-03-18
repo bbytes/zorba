@@ -1,6 +1,6 @@
 package com.bbytes.zorba.jobworker.service.impl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

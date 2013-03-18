@@ -1,6 +1,5 @@
 package com.bbytes.zorba.persistence.mongo;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
@@ -12,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbytes.zorba.domain.Priority;
-import com.bbytes.zorba.domain.mongo.PriorityQueue;
 import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 
 @RunWith(SpringJUnit4ClassRunner.class)

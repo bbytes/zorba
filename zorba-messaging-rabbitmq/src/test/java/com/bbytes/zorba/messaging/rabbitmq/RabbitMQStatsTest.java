@@ -19,16 +19,15 @@ import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
  * Test class for {@link RabbitMQSender}
  * 
  * @author Dhanush Gopinath
- *
+ * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ={ "classpath*:/spring/zorba-messaging-test-context.xml" })
+@ContextConfiguration(locations = { "classpath*:/spring/zorba-messaging-test-context.xml" })
 public class RabbitMQStatsTest {
 
 	@Autowired
 	IQueueStatsService queueStatsService;
-	
-	
+
 	@Before
 	public void setUp() throws Exception {
 	}
@@ -38,20 +37,19 @@ public class RabbitMQStatsTest {
 	}
 
 	@Test
+	public void testQueueNames() {
 		List<String> queueNames = queueStatsService.getQueueNames();
 		Assert.assertNotNull(queueNames);
 	}
-	
+
 	@Test
 	public void testQueueSize() {
 		List<String> queueNames = queueStatsService.getQueueNames();
-		for(String queueName: queueNames){
-			long size= queueStatsService.getQueueMessageSize(queueName);
+		for (String queueName : queueNames) {
+			long size = queueStatsService.getQueueMessageSize(queueName);
 			System.out.println(size);
 		}
 		Assert.assertNotNull(queueNames);
 	}
-
-	
 
 }
