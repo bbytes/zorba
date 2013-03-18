@@ -20,11 +20,13 @@
 
     <context:annotation-config />
 
-    <import resource="classpath*:spring/zorba-testing-domain-mongo-context.xml" />
+    <context:component-scan base-package="com.bbytes.zorba.persistence.mongo.impl" />
+
+    <import resource="classpath*:spring/zorba-testing-context.xml" />
 
     <mongo:repositories
         base-package="com.bbytes.zorba.persistence.mongo"
         mongo-template-ref="mongoTemplate" >
-
     </mongo:repositories>
+
 </beans>

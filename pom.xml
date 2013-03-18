@@ -240,15 +240,11 @@
 		<module>zorba-domain</module>
 		<module>zorba-persistence</module>
 		<module>zorba-messaging</module>
-		<module>zorba-job-worker-core</module>
 		<module>zorba-testing</module>
 
 		<module>zorba-domain-mongo</module>
 		<module>zorba-persistence-mongo</module>
 		<module>zorba-messaging-rabbitmq</module>
-
-		<module>zorba-testing-domain-mongo</module>
-		<module>zorba-testing-persistence-mongo</module>
 
 		<module>zorba-job-worker</module>
 		<module>zorba-web-server</module>
