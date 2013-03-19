@@ -1,16 +1,17 @@
 /**
  * 
  */
-package com.bbytes.zorba.domain.mongo;
+package com.bbytes.zorba.domain;
 
-import com.bbytes.zorba.domain.IPriorityQueue;
-import com.bbytes.zorba.domain.Priority;
 
 /**
- * @author dhanush
+ * Domain entity for holding a priority queue
+ * 
+ * @author Dhanush Gopinath
+ * @version 0.0.1
  * 
  */
-public class PriorityQueue extends Entity implements IPriorityQueue {
+public class PriorityQueue extends Entity {
 
 	/**
 	 * 

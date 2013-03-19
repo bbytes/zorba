@@ -3,8 +3,8 @@
  */
 package com.bbytes.zorba.persistence;
 
-import com.bbytes.zorba.domain.IPriorityQueue;
 import com.bbytes.zorba.domain.Priority;
+import com.bbytes.zorba.domain.PriorityQueue;
 
 /**
  * Dao interface for {@link IPriorityQueue}
@@ -12,7 +12,7 @@ import com.bbytes.zorba.domain.Priority;
  * @author Dhanush Gopinath
  *
  */
-public interface IPriorityQueueDao extends IZorbaDao<IPriorityQueue>{
+public interface IPriorityQueueDao extends IZorbaDao<PriorityQueue>{
 
 	/**
 	 * Returns the priority queues based on the priority
@@ -20,5 +20,5 @@ public interface IPriorityQueueDao extends IZorbaDao<IPriorityQueue>{
 	 * @param priority
 	 * @return
 	 */
-	IPriorityQueue getPriorityQueue(Priority priority);
+	PriorityQueue getPriorityQueue(Priority priority);
 }

@@ -19,14 +19,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import com.bbytes.zorba.domain.Priority;
-import com.bbytes.zorba.domain.mongo.PriorityQueue;
+import com.bbytes.zorba.domain.PriorityQueue;
 
 /**
- * 
+ * Base class for creating all the Mock Objects.
  *
  * @author Dhanush Gopinath
  *
- * @version 
+ * @version 0.0.1
  */
 public class ZorbaBaseTesting {
 

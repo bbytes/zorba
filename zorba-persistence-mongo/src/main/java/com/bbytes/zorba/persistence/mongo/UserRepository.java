@@ -8,8 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.bbytes.zorba.domain.IUser;
-import com.bbytes.zorba.domain.mongo.User;
+import com.bbytes.zorba.domain.User;
 
 
 /**
@@ -29,7 +28,7 @@ public interface UserRepository extends
 	 * @param pageable
 	 * @return
 	 */
-	public IUser findByUserName(String userName);
+	public User findByUserName(String userName);
 
 	/**
 	 * Returns objects for given email.
@@ -38,7 +37,7 @@ public interface UserRepository extends
 	 * @param pageable
 	 * @return
 	 */
-	public IUser findByEmail(String email);
+	public User findByEmail(String email);
 
 	/**
 	 * Returns objects for given email or username.
@@ -47,7 +46,7 @@ public interface UserRepository extends
 	 * @param userName
 	 * @return
 	 */
-	public IUser findByEmailOrUserName(String email, String userName);
+	public User findByEmailOrUserName(String email, String userName);
 
 	/**
 	 * Return User list by Client Id

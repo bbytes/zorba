@@ -48,7 +48,7 @@
 		<!-- Zorba dependencies -->
 		<dependency>
 			<groupId>com.bbytes</groupId>
-			<artifactId>zorba-domain-mongo</artifactId>
+			<artifactId>zorba-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>

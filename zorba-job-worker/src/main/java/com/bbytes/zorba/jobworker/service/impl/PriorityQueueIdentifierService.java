@@ -17,15 +17,12 @@ package com.bbytes.zorba.jobworker.service.impl;
 
 import java.util.Date;
 
-import javax.xml.ws.ServiceMode;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.bbytes.zorba.domain.IPriorityQueue;
 import com.bbytes.zorba.domain.Priority;
-import com.bbytes.zorba.domain.mongo.PriorityQueue;
+import com.bbytes.zorba.domain.PriorityQueue;
 import com.bbytes.zorba.jobworker.service.IPriorityQueueIdentifierService;
 import com.bbytes.zorba.persistence.IPriorityQueueDao;
 import com.bbytes.zorba.persistence.exception.PersistenceException;
@@ -57,7 +54,7 @@ public class PriorityQueueIdentifierService implements IPriorityQueueIdentifierS
 	 */
 	@Override
 	public void registerPriorityQueue(Priority priority, String queueName) {
-		IPriorityQueue pq = new PriorityQueue();
+		PriorityQueue pq = new PriorityQueue();
 		pq.setPriority(priority);
 		pq.setQueueName(queueName);
 		pq.setCreationDate(new Date());

@@ -258,7 +258,6 @@
 		<module>zorba-messaging</module>
 		<module>zorba-testing</module>
 
-		<module>zorba-domain-mongo</module>
 		<module>zorba-persistence-mongo</module>
 		<module>zorba-messaging-rabbitmq</module>
 
