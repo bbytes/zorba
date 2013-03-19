@@ -37,6 +37,10 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aspects</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+		</dependency>
 		<!-- The Embedded Mongo DB Database for testing -->
 		<dependency>
 			<groupId>de.flapdoodle.embed</groupId>

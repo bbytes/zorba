@@ -89,12 +89,12 @@ public class Queue {
 	/**
 	 * number of messages ready to be delivered to clients
 	 */
-	private long messagesReady;
+	private long messages_ready;
 
 	/**
 	 * number of messages delivered to clients but not yet acknowledged
 	 */
-	private long messagesUnacknowledged;
+	private long messages_unacknowledged;
 
 	/**
 	 * Number of consumers
@@ -206,20 +206,33 @@ public class Queue {
 		this.messages = messages;
 	}
 
-	public long getMessagesReady() {
-		return messagesReady;
+
+	/**
+	 * @return the messages_ready
+	 */
+	public long getMessages_ready() {
+		return messages_ready;
 	}
 
-	public void setMessagesReady(long messagesReady) {
-		this.messagesReady = messagesReady;
+	/**
+	 * @param messages_ready the messages_ready to set
+	 */
+	public void setMessages_ready(long messages_ready) {
+		this.messages_ready = messages_ready;
 	}
 
-	public long getMessagesUnacknowledged() {
-		return messagesUnacknowledged;
+	/**
+	 * @return the messages_unacknowledged
+	 */
+	public long getMessages_unacknowledged() {
+		return messages_unacknowledged;
 	}
 
-	public void setMessagesUnacknowledged(long messagesUnacknowledged) {
-		this.messagesUnacknowledged = messagesUnacknowledged;
+	/**
+	 * @param messages_unacknowledged the messages_unacknowledged to set
+	 */
+	public void setMessages_unacknowledged(long messages_unacknowledged) {
+		this.messages_unacknowledged = messages_unacknowledged;
 	}
 
 	public long getConsumers() {
