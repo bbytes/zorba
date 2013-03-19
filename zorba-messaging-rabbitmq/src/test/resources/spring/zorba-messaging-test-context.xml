@@ -55,9 +55,7 @@
     <bean
         id="credentials"
         class="org.apache.commons.httpclient.UsernamePasswordCredentials" >
-
         <constructor-arg value="${rabbitmq.username}" />
-
         <constructor-arg value="${rabbitmq.password}" />
     </bean>
 

@@ -19,7 +19,7 @@ import java.util.Map;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
- * 
+ * This class is the json representation of rabbitmq queue object from management http api doc
  * 
  * @author Thanneer
  * 
@@ -69,12 +69,12 @@ public class Queue {
 	/**
 	 * Whether the queue will be deleted automatically when no longer used
 	 */
-	private Boolean autoDelete=false;
+	private Boolean autoDelete = false;
 
 	/**
 	 * Whether or not the queue survives server restarts
 	 */
-	private Boolean durable=true;
+	private Boolean durable = true;
 
 	/**
 	 * Queue arguments
@@ -106,9 +106,9 @@ public class Queue {
 	 * internal structures
 	 */
 	private long memory;
-	
+
 	/**
-	 * Idle time information 
+	 * Idle time information
 	 */
 	private String idle_since;
 
@@ -206,7 +206,6 @@ public class Queue {
 		this.messages = messages;
 	}
 
-
 	/**
 	 * @return the messages_ready
 	 */
@@ -215,7 +214,8 @@ public class Queue {
 	}
 
 	/**
-	 * @param messages_ready the messages_ready to set
+	 * @param messages_ready
+	 *            the messages_ready to set
 	 */
 	public void setMessages_ready(long messages_ready) {
 		this.messages_ready = messages_ready;
@@ -229,7 +229,8 @@ public class Queue {
 	}
 
 	/**
-	 * @param messages_unacknowledged the messages_unacknowledged to set
+	 * @param messages_unacknowledged
+	 *            the messages_unacknowledged to set
 	 */
 	public void setMessages_unacknowledged(long messages_unacknowledged) {
 		this.messages_unacknowledged = messages_unacknowledged;
@@ -259,7 +260,8 @@ public class Queue {
 	}
 
 	/**
-	 * @param idle_since the idle_since to set
+	 * @param idle_since
+	 *            the idle_since to set
 	 */
 	public void setIdle_since(String idle_since) {
 		this.idle_since = idle_since;
