@@ -73,4 +73,12 @@ public class SendMailJob extends AbstractJob implements IJob {
 		mailSender.send(message);
 
 	}
+
+	/* (non-Javadoc)
+	 * @see com.bbytes.zorba.domain.IJob#getJobDescription()
+	 */
+	@Override
+	public String getJobDescription() {
+		return "Job that sends email to the given address ,body and subject";
+	}
 }
