@@ -40,65 +40,27 @@ public abstract class AbstractJob implements IJob {
 		modificationDate = new Date();
 
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.bbytes.zorba.domain.IEntity#setId(java.lang.String)
-	 */
-	@Override
 	public void setId(String id) {
 		this.jobId = id;
 
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.bbytes.zorba.domain.IEntity#getId()
-	 */
-	@Override
 	public String getId() {
 		return jobId;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.bbytes.zorba.domain.IEntity#getCreationDate()
-	 */
-	@Override
 	public Date getCreationDate() {
 		return creationDate;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.bbytes.zorba.domain.IEntity#setCreationDate(java.util.Date)
-	 */
-	@Override
 	public void setCreationDate(Date creationDate) {
 		// Don't set creation date as it is done while creating object but child classes can override
 		// this behavior
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.bbytes.zorba.domain.IEntity#getModificationDate()
-	 */
-	@Override
 	public Date getModificationDate() {
 		return modificationDate;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.bbytes.zorba.domain.IEntity#setModificationDate(java.util.Date)
-	 */
-	@Override
 	public void setModificationDate(Date modificationDate) {
 		this.modificationDate=modificationDate;
 
