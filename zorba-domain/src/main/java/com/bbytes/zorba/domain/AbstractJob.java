@@ -27,8 +27,6 @@ import com.bbytes.zorba.exception.JobExecutionException;
  */
 public abstract class AbstractJob implements IJob {
 
-	private static final long serialVersionUID = -4230206130759611641L;
-
 	protected String jobId;
 
 	protected Date creationDate;
