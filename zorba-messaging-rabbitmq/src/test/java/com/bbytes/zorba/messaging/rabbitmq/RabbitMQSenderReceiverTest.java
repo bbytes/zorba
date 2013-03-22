@@ -16,7 +16,6 @@ import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
-import com.bbytes.zorba.jobworker.service.IPriorityQueueIdentifierService;
 import com.bbytes.zorba.messaging.IQueueStatsService;
 import com.bbytes.zorba.messaging.exception.MessagingException;
 import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver;
@@ -47,9 +46,6 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 	@Autowired
 	IQueueStatsService statsService;
 	
-	@Autowired
-	private IPriorityQueueIdentifierService priorityQueueIdentifierService;
-
 	@Before
 	public void setUp() throws Exception {
 		insertPriorityQueues();
@@ -58,7 +54,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 	@Test
 	public void testSendZorbaRequestPriority() throws MessagingException, InterruptedException {
 		Priority p = Priority.HIGH;
-		String queueName = priorityQueueIdentifierService.getQueueName(p);
+		String queueName = p.getQueueName();
 		long queueSize = statsService.getQueueMessageSize(queueName);
 		String id = UUID.randomUUID().toString();
 		zorbaRequest.setId(id);
@@ -73,7 +69,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 	@Test
 	public void testSendZorbaRequestString() throws MessagingException, InterruptedException {
 		Priority p = Priority.HIGH;
-		String queueName = priorityQueueIdentifierService.getQueueName(p);
+		String queueName = p.getQueueName();
 //		long queueSize = statsService.getQueueMessageSize(queueName);
 		String id = UUID.randomUUID().toString();
 		zorbaRequest.setId(id);
@@ -88,7 +84,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 	@Test
 	public void testReceiveResponseString() throws MessagingException {
 		Priority p = Priority.LOW;
-		String queueName = priorityQueueIdentifierService.getQueueName(p);
+		String queueName = p.getQueueName();
 		String id = UUID.randomUUID().toString();
 		zorbaResponse.setId(id);
 		receiver.sendResponse(zorbaResponse, queueName);

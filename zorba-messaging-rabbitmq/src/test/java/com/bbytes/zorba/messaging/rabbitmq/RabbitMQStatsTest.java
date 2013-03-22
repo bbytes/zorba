@@ -51,6 +51,12 @@ public class RabbitMQStatsTest {
 		Assert.assertNotSame(0,queueStatsService.getTotalQueueSize());
 		Assert.assertNotSame(0,queueStatsService.getPendingRequestSize());
 		
+		try {
+			Thread.currentThread().sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -9,9 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.bbytes</groupId>
 	<artifactId>zorba-messaging-rabbitmq</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>zorba-messaging-rabbitmq</name>
