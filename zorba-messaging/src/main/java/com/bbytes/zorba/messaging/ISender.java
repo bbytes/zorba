@@ -15,7 +15,7 @@ import com.bbytes.zorba.messaging.exception.MessagingException;
  * @version 1.0
  * 
  */
-@Deprecated
+//@Deprecated
 // Sender not required in server side ,only client should have sender interface impl
 public interface ISender {
 

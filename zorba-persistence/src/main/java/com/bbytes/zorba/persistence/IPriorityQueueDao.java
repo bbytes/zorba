@@ -12,6 +12,7 @@ import com.bbytes.zorba.domain.PriorityQueue;
  * @author Dhanush Gopinath
  *
  */
+@Deprecated
 public interface IPriorityQueueDao extends IZorbaDao<PriorityQueue>{
 
 	/**

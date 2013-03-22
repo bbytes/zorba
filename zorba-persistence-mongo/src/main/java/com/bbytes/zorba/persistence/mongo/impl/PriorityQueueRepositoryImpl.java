@@ -29,6 +29,7 @@ import com.bbytes.zorba.persistence.IPriorityQueueDao;
  * @version 0.0.1
  * 
  */
+@Deprecated
 public class PriorityQueueRepositoryImpl extends ZorbaRepositoryImpl<PriorityQueue> implements IPriorityQueueDao {
 
 	/*

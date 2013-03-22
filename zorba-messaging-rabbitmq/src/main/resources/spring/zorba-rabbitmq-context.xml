@@ -12,7 +12,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>	classpath:zorba-rabbitmq.properties</value>
+				<value> classpath:zorba-rabbitmq.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -29,7 +29,14 @@
 	<rabbit:admin id="amqpAdmin" auto-startup="true"
 		connection-factory="rabbitConnectionFactory" />
 
-		<bean id="jsonMessageConverter"
+	<!-- Request Queues -->
+	<rabbit:queue id="pq.critical" name="${priority.queue.critical}" />
+	<rabbit:queue id="pq.high" name="${priority.queue.high}" />
+	<rabbit:queue id="pq.medium" name="${priority.queue.medium}" />
+	<rabbit:queue id="pq.low" name="${priority.queue.low}" />
+
+
+	<bean id="jsonMessageConverter"
 		class="org.springframework.amqp.support.converter.JsonMessageConverter" />
 
 	<!-- A template for sending messages and performing other commands to RabbitMQ -->
@@ -39,25 +46,27 @@
 		p:messageConverter-ref="jsonMessageConverter">
 	</bean>
 
-	<!-- <bean id="responseHandler" class="com.bbytes.webworker.impl.ResponseHandlerImpl" />
-
-	<bean id="errorHandler" class="com.bbytes.webworker.logging.LoggingErrorHandler" />
-
-	<bean id="producerService" class="com.bbytes.webworker.messaging.impl.ProducerServiceImpl">
-
-		<property name="defaultQueueName" value="${rabbitmq.work.queue}">
-		</property>
-
-		<property name="defaultReplyTo" value="${rabbitmq.work.reply.queue}">
+	<bean id="pqRequestHandler"
+		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueRequestHandlerImpl">
+		<property name="priorityQueueNames">
+			<array>
+				<value>${priority.queue.critical}</value>
+				<value>${priority.queue.high}</value>
+				<value>${priority.queue.medium}</value>
+				<value>${priority.queue.low}</value>
+			</array>
 		</property>
 	</bean>
 
-	<listener-container concurrency="5"
-		connection-factory="rabbitConnectionFactory" error-handler="errorHandler"
-		message-converter="jsonMessageConverter" xmlns="http://www.springframework.org/schema/rabbit">
+	<bean id="pqErrorHandler"
+		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueErrorHandlerImpl" />
 
-		<listener method="handleWebWorkerResponse" queue-names="${rabbitmq.work.reply.queue}"
-			ref="responseHandler" />
-	</listener-container> -->
+	<listener-container concurrency="5"
+		connection-factory="rabbitConnectionFactory" message-converter="jsonMessageConverter"
+		error-handler="pqErrorHandler" xmlns="http://www.springframework.org/schema/rabbit">
+		<listener ref="pqRequestHandler" />
+	</listener-container>
+
+
 
 </beans>

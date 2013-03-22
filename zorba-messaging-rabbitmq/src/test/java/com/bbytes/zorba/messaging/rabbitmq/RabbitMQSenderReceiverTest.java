@@ -52,7 +52,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 
 	@Before
 	public void setUp() throws Exception {
-		insertPriorityQueues();
+//		insertPriorityQueues();
 	}
 	
 	@Test
@@ -106,6 +106,15 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 		ZorbaResponse response = sender.receiveResponse(p);
 		assertNotNull(response);
 		assertEquals(id, response.getId());
+	}
+
+	
+	@Test
+	public void testSendZorbaRequestPriorityByRequestHandler() throws MessagingException, InterruptedException {
+		Priority p = Priority.HIGH;
+		String id = UUID.randomUUID().toString();
+		zorbaRequest.setId(id);
+		sender.send(zorbaRequest,p);
 	}
 
 }
