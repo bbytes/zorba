@@ -13,40 +13,29 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License.
  */
-package com.bbytes.zorba.jobworker.domain;
+package com.bbytes.zorba.jobworker.impl;
+
+import java.util.Map;
+
+import com.bbytes.zorba.jobworker.JobProcessor;
+import com.bbytes.zorba.jobworker.exception.ProcessingException;
 
 /**
- * Interface extension of {@link ZorbaRequest} for sending asynchronous request. 
+ * 
  *
  * @author Dhanush Gopinath
  *
- * @version 0.0.1
+ * @version 
  */
-public interface ZorbaAsyncRequest extends ZorbaRequest {
+public class JobProcessorImpl implements JobProcessor {
 
-	/**
-	 * Sets the correlation id for the request
-	 * 
-	 * @param correlationId
+	/* (non-Javadoc)
+	 * @see com.bbytes.zorba.jobworker.JobProcessor#processJob(java.lang.String, java.util.Map)
 	 */
-	void setCorrelationId(String correlationId);
-	
-	/**
-	 * Returns the correlation id
-	 * 
-	 * @return
-	 */
-	String getCorrelationId();
-	
-	/**
-	 * Sets the reply queue
-	 * @param replyQueue
-	 */
-	void setReplyQueue(String replyQueue);
-	
-	/**
-	 * Returns the reply queue
-	 * @return
-	 */
-	String getReplyQueue();
+	@Override
+	public void processJob(String jobName, Map<String, ?> jobData) throws ProcessingException {
+		// TODO Auto-generated method stub
+
+	}
+
 }

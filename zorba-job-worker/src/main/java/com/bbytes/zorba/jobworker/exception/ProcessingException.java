@@ -10,7 +10,7 @@ package com.bbytes.zorba.jobworker.exception;
  * 
  *
  */
-public class JobProcessingException extends Exception {
+public class ProcessingException extends Exception {
 
 	/**
 	 * 
@@ -20,14 +20,14 @@ public class JobProcessingException extends Exception {
 	/**
 	 * 
 	 */
-	public JobProcessingException() {
+	public ProcessingException() {
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @param message
 	 */
-	public JobProcessingException(String message) {
+	public ProcessingException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
@@ -35,7 +35,7 @@ public class JobProcessingException extends Exception {
 	/**
 	 * @param cause
 	 */
-	public JobProcessingException(Throwable cause) {
+	public ProcessingException(Throwable cause) {
 		super(cause);
 		// TODO Auto-generated constructor stub
 	}
@@ -44,7 +44,7 @@ public class JobProcessingException extends Exception {
 	 * @param message
 	 * @param cause
 	 */
-	public JobProcessingException(String message, Throwable cause) {
+	public ProcessingException(String message, Throwable cause) {
 		super(message, cause);
 		// TODO Auto-generated constructor stub
 	}

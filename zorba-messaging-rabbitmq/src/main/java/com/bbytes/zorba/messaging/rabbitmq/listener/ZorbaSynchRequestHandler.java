@@ -11,36 +11,24 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.bbytes.zorba.jobworker.domain.impl;
+package com.bbytes.zorba.messaging.rabbitmq.listener;
 
-import com.bbytes.zorba.jobworker.domain.ZorbaAsyncResponse;
+import com.bbytes.zorba.messaging.exception.MessagingException;
 
 /**
- * Implementation fo {@link ZorbaAsyncResponse}
+ * The interface for handling Zorba Requests arriving in the queues synchronously, which is to poll
+ * for a single Message at a time with a synchronous, blocking method call.
  * 
  * @author Dhanush Gopinath
  * 
- * @version
+ * @version 0.0.1
  */
-public class ZorbaAsyncResponseImpl extends ZorbaResponseImpl implements ZorbaAsyncResponse {
+public interface ZorbaSynchRequestHandler {
 
-	private String correlationId;
-	private String replyQueue;
-
-	public String getCorrelationId() {
-		return correlationId;
-	}
-
-	public void setCorrelationId(String correlationId) {
-		this.correlationId = correlationId;
-	}
-
-	public String getReplyQueue() {
-		return replyQueue;
-	}
-
-	public void setReplyQueue(String replyQueue) {
-		this.replyQueue = replyQueue;
-	}
-
+	/**
+	 * Handle the messages from queues. This method has to be scheduled as a cron job
+	 * 
+	 * @throws MessagingException
+	 */
+	void handleZorbaRequests() throws MessagingException;
 }

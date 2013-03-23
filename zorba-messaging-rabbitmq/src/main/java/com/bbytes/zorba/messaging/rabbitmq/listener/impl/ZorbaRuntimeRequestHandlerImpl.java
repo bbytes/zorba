@@ -27,20 +27,19 @@ import com.bbytes.zorba.messaging.exception.MessagingException;
 import com.bbytes.zorba.messaging.rabbitmq.listener.ZorbaRequestHandler;
 
 /**
- * Handles all the Zorba Request arriving in the Priority Queues
+ * Handles all the Zorba Requests arriving in the queues created by the clients
  *
  * @author Dhanush Gopinath
  *
  * @version 
  */
-public class PriorityQueueRequestHandlerImpl implements ZorbaRequestHandler {
+public class ZorbaRuntimeRequestHandlerImpl implements ZorbaRequestHandler {
 	
-	private static final Logger LOG = Logger.getLogger(PriorityQueueRequestHandlerImpl.class);
+	private static final Logger LOG = Logger.getLogger(ZorbaRuntimeRequestHandlerImpl.class);
 	
 	@Autowired
 	private MessageConverter jsonMessageConverter;
 	
-	private String [] priorityQueueNames;
 
 	/* (non-Javadoc)
 	 * @see org.springframework.amqp.core.MessageListener#onMessage(org.springframework.amqp.core.Message)
@@ -64,14 +63,4 @@ public class PriorityQueueRequestHandlerImpl implements ZorbaRequestHandler {
 		System.out.println("Obtained Message " + request.getId());
 
 	}
-
-	public String [] getPriorityQueueNames() {
-		return priorityQueueNames;
-	}
-
-	public void setPriorityQueueNames(String [] priorityQueueNames) {
-		this.priorityQueueNames = priorityQueueNames;
-//		setQueueNames(priorityQueueNames);
-	}
-
 }

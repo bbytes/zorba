@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
-import com.bbytes.zorba.jobworker.service.IPriorityQueueIdentifierService;
 import com.bbytes.zorba.messaging.IReceiver;
 import com.bbytes.zorba.messaging.exception.MessagingException;
 import com.bbytes.zorba.messaging.rabbitmq.IRabbitMQReceiver;
@@ -23,8 +22,6 @@ public class RabbitMQReceiver implements IRabbitMQReceiver {
 	@Autowired
 	private RabbitOperations rabbitOperations;
 
-	@Autowired
-	private IPriorityQueueIdentifierService priorityQueueIdentifierService;
 
 	public ZorbaRequest receive(String queueName) throws MessagingException {
 		ZorbaRequest request = null;
@@ -37,7 +34,7 @@ public class RabbitMQReceiver implements IRabbitMQReceiver {
 	public ZorbaRequest receive(Priority priority) throws MessagingException {
 		ZorbaRequest request = null;
 		if (priority != null) {
-			String queueName = priorityQueueIdentifierService.getQueueName(priority);
+			String queueName = priority.getQueueName();
 			request = receive(queueName);
 		}
 		return request;
@@ -52,7 +49,7 @@ public class RabbitMQReceiver implements IRabbitMQReceiver {
 
 	public void sendResponse(ZorbaResponse response, Priority priority) throws MessagingException {
 		if (response != null && priority != null) {
-			String queueName = priorityQueueIdentifierService.getQueueName(priority);
+			String queueName = priority.getQueueName();
 			rabbitOperations.convertAndSend(queueName, response);
 		}
 

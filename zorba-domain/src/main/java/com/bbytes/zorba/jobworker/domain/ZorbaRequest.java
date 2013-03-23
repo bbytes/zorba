@@ -1,100 +1,88 @@
-/**
- * 
+/*
+ * Copyright (C) 2013 The Zorba Open Source Project 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at 
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
  */
 package com.bbytes.zorba.jobworker.domain;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.bbytes.zorba.domain.Priority;
 
 /**
- * The interface for a ZorbaRequest. This encapsulates the data sent by the
- * clients
+ * Domain class for making a request to the Zorba Job Execution
  * 
  * @author Dhanush Gopinath
  * @version 0.0.1
- * @since 0.0.1
  * 
  */
-public interface ZorbaRequest {
+public class ZorbaRequest implements Serializable{
 
-	/**
-	 * Sets the id for this request
-	 * 
-	 * @param id
-	 */
-	void setId(String id);
+	private static final long serialVersionUID = -6789865933652864865L;
 
-	/**
-	 * Sets the unique job name for this request
-	 * 
-	 * @param jobName
-	 */
-	void setJobName(String jobName);
+	protected String id;
+	protected String jobName;
+	protected String queueName;
+	protected Map<String, ?> data;
+	protected Priority priority;
+	protected String type;
 
-	/**
-	 * Sets the queue name for this request. If set as null, then it takes the
-	 * default priority queue name based on the priority set.
-	 * 
-	 * @param queueName
-	 */
-	void setQueueName(String queueName);
+	public String getId() {
+		return id;
+	}
 
-	/**
-	 * Sets the custom payload data on the request
-	 * 
-	 * @param data
-	 */
-	void setData(Map<String, ?> data);
+	public void setId(String id) {
+		this.id = id;
+	}
 
-	/**
-	 * Sets the priority from the Priority enum, {@link Priority}
-	 * @param priority
-	 */
-	void setPriority(Priority priority);
+	public String getJobName() {
+		return jobName;
+	}
 
-	/**
-	 * Sets the type of the request
-	 * 
-	 * @param type
-	 */
-	void setType(String type);
+	public void setJobName(String jobName) {
+		this.jobName = jobName;
+	}
 
-	/**
-	 * Returns the id
-	 * @return
-	 */
-	String getId();
+	public String getQueueName() {
+		return queueName;
+	}
 
-	/**
-	 * Returns the job name
-	 * @return
-	 */
-	String getJobName();
+	public void setQueueName(String queueName) {
+		this.queueName = queueName;
+	}
 
-	/**
-	 * Returns the queue name
-	 * @return
-	 */
-	String getQueueName();
+	public Map<String, ?> getData() {
+		return data;
+	}
 
-	/**
-	 * Returns the data payload
-	 * @return
-	 */
-	Map<String, ?> getData();
+	public void setData(Map<String, ?> data) {
+		this.data = data;
+	}
 
-	/**
-	 * Returns the priority
-	 * 
-	 * @return
-	 */
-	Priority getPriority();
+	public Priority getPriority() {
+		return priority;
+	}
 
-	/**
-	 * Returns the type
-	 * @return
-	 */
-	String getType();
+	public void setPriority(Priority priority) {
+		this.priority = priority;
+	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

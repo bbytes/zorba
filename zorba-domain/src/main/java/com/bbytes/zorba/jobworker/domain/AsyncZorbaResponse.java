@@ -15,38 +15,35 @@
  */
 package com.bbytes.zorba.jobworker.domain;
 
-/**
- * Interface extension of {@link ZorbaResponse} for sending asynchronous response. 
- *
- * @author Dhanush Gopinath
- *
- * @version 0.0.1
- */
-public interface ZorbaAsyncResponse extends ZorbaResponse {
 
-	/**
-	 * Sets the correlation id for the request
-	 * 
-	 * @param correlationId
-	 */
-	void setCorrelationId(String correlationId);
+/**
+ * The domain class which encapsulates the asynchronous response send back by zorba
+ * 
+ * @author Dhanush Gopinath
+ * 
+ */
+public class AsyncZorbaResponse extends ZorbaResponse {
+
+	private static final long serialVersionUID = 6435597307710484854L;
+
+	protected String correlationId;
 	
-	/**
-	 * Returns the correlation id
-	 * 
-	 * @return
-	 */
-	String getCorrelationId();
-	
-	/**
-	 * Sets the reply queue
-	 * @param replyQueue
-	 */
-	void setReplyQueue(String replyQueue);
-	
-	/**
-	 * Returns the reply queue
-	 * @return
-	 */
-	String getReplyQueue();
+	protected String replyQueue;
+
+	public String getCorrelationId() {
+		return correlationId;
+	}
+
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
+	}
+
+	public String getReplyQueue() {
+		return replyQueue;
+	}
+
+	public void setReplyQueue(String replyQueue) {
+		this.replyQueue = replyQueue;
+	}
+
 }

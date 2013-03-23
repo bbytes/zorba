@@ -46,7 +46,7 @@
 		p:messageConverter-ref="jsonMessageConverter">
 	</bean>
 
-	<bean id="pqRequestHandler"
+<!-- 	<bean id="pqRequestHandler"
 		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueRequestHandlerImpl">
 		<property name="priorityQueueNames">
 			<array>
@@ -65,7 +65,7 @@
 		connection-factory="rabbitConnectionFactory" message-converter="jsonMessageConverter"
 		error-handler="pqErrorHandler" xmlns="http://www.springframework.org/schema/rabbit">
 		<listener ref="pqRequestHandler" />
-	</listener-container>
+	</listener-container> -->
 
 
 

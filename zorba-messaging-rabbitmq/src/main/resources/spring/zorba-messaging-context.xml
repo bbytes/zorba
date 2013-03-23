@@ -55,6 +55,8 @@
 			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
 	</bean>
 
-			
+	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
+	<task:executor id="myExecutor" pool-size="15-30" queue-capacity="100"/>
+	<task:scheduler id="myScheduler" pool-size="20" />
 </beans>
 
