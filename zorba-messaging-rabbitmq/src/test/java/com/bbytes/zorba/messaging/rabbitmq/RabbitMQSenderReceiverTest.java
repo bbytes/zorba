@@ -48,7 +48,7 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 	
 	@Before
 	public void setUp() throws Exception {
-		insertPriorityQueues();
+		insertJobLifeCycleObjects();
 	}
 	
 	@Test
