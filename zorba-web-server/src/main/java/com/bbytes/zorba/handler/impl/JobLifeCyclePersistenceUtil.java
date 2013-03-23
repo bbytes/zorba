@@ -28,25 +28,63 @@ import com.bbytes.zorba.domain.JobLifeCycle;
 public class JobLifeCyclePersistenceUtil {
 
 	public static JobLifeCycle onJobStartedEvent(JobEvent jobEvent) {
-		
-			JobLifeCycle jobLifeCycle= new JobLifeCycle();
-			jobLifeCycle.setId(jobEvent.getJobExecutionId());
-			jobLifeCycle.setJobExecutionId(jobEvent.getJobExecutionId());
-			jobLifeCycle.setCreationDate(new Date());
+
+		JobLifeCycle jobLifeCycle = new JobLifeCycle();
+		jobLifeCycle.setId(jobEvent.getJobExecutionId());
+		jobLifeCycle.setJobExecutionId(jobEvent.getJobExecutionId());
+		jobLifeCycle.setJob(jobEvent.getJob());
+		jobLifeCycle.setCreationDate(new Date());
+		jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
+		jobLifeCycle.setJobStartTime(jobEvent.getEventTime());
+		jobLifeCycle.setDescription(jobEvent.getDescription());
+		return jobLifeCycle;
+
+	}
+
+	public static JobLifeCycle onJobCompletedEvent(JobEvent jobEvent, JobLifeCycle jobLifeCycle) {
+		if (jobLifeCycle != null) {
 			jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
-			jobLifeCycle.setJobStartTime(jobEvent.getEventTime());
-		
+			jobLifeCycle.setJobEndTime(jobEvent.getEventTime());
+		}
+		return jobLifeCycle;
+	}
+	
+	public static JobLifeCycle onJobFailedEvent(JobEvent jobEvent, JobLifeCycle jobLifeCycle) {
+		if (jobLifeCycle != null) {
+			jobLifeCycle.setStackTrace(jobEvent.getStackTrace());
+			jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
+			jobLifeCycle.setJobEndTime(jobEvent.getEventTime());
+		}
+		return jobLifeCycle;
 	}
 
-	public static JobLifeCycle onJobFailedEvent(JobEvent jobEvent,JobLifeCycle jobLifeCycle) {
-
+	public static JobLifeCycle onJobWaitingEvent(JobEvent jobEvent, JobLifeCycle jobLifeCycle) {
+		if (jobLifeCycle != null) {
+			jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
+		}
+		return jobLifeCycle;
+	}
+	
+	public static JobLifeCycle onJobRunningEvent(JobEvent jobEvent, JobLifeCycle jobLifeCycle) {
+		if (jobLifeCycle != null) {
+			jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
+		}
+		return jobLifeCycle;
 	}
 
-	public static JobLifeCycle onJobWaitingEvent(JobEvent jobEvent,JobLifeCycle jobLifeCycle) {
-
+	public static JobLifeCycle onJobTerminatedEvent(JobEvent jobEvent, JobLifeCycle jobLifeCycle) {
+		if (jobLifeCycle != null) {
+			jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
+			jobLifeCycle.setJobEndTime(jobEvent.getEventTime());
+		}
+		return jobLifeCycle;
 	}
-
-	public static JobLifeCycle onJobTerminatedEvent(JobEvent jobEvent,JobLifeCycle jobLifeCycle) {
-
+	
+	public static JobLifeCycle onJobInterruptedEvent(JobEvent jobEvent, JobLifeCycle jobLifeCycle) {
+		if (jobLifeCycle != null) {
+			jobLifeCycle.setCurrentStatus(jobEvent.getJobStatus());
+			jobLifeCycle.setJobEndTime(jobEvent.getEventTime());
+		}
+		return jobLifeCycle;
 	}
 }

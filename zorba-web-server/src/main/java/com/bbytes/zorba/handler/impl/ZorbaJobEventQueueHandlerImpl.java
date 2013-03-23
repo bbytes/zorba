@@ -15,13 +15,17 @@ package com.bbytes.zorba.handler.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bbytes.zorba.domain.IJob;
 import com.bbytes.zorba.domain.JobEvent;
+import com.bbytes.zorba.domain.JobLifeCycle;
 import com.bbytes.zorba.handler.ZorbaJobEventQueueHandler;
 import com.bbytes.zorba.persistence.JobLifeCycleDao;
 
 /**
  * 
- * Handles all job event from job event queue and stores it in persistence layer
+ * Handles all {@link JobEvent} from job event queue and stores it in persistence layer. In this case the
+ * {@link IJob} status is pulled from the even queue and converted into {@link JobLifeCycle} object and stored
+ * Web layer can come up with job analytics using these life cycle object 
  * 
  * @author Thanneer
  * 
@@ -31,6 +35,7 @@ public class ZorbaJobEventQueueHandlerImpl implements ZorbaJobEventQueueHandler 
 
 	@Autowired
 	private JobLifeCycleDao jobLifeCycleDao;
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -40,7 +45,35 @@ public class ZorbaJobEventQueueHandlerImpl implements ZorbaJobEventQueueHandler 
 	 */
 	@Override
 	public void handleZorbaJobEvent(JobEvent event) throws Exception {
-		jobLifeCycleDao.
+		JobLifeCycle jobLifeCycle = jobLifeCycleDao.findOne(event.getJobExecutionId());
+
+		switch (event.getJobStatus()) {
+		case STARTED:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobRunningEvent(event, jobLifeCycle);
+			break;
+		case COMPLETED:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobCompletedEvent(event, jobLifeCycle);
+			break;
+		case INTERRUPTED:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobInterruptedEvent(event, jobLifeCycle);
+			break;
+		case WAITING:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobWaitingEvent(event, jobLifeCycle);
+			break;
+		case FAILED:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobFailedEvent(event, jobLifeCycle);
+			break;
+		case RUNNNING:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobRunningEvent(event, jobLifeCycle);
+			break;
+		default:
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobCompletedEvent(event, jobLifeCycle);
+			break;
+		}
+
+		// save the life cycle object
+		jobLifeCycleDao.save(jobLifeCycle);
+
 	}
 
 }
