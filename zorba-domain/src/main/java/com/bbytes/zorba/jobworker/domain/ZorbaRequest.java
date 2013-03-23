@@ -34,7 +34,7 @@ public class ZorbaRequest implements Serializable{
 	protected String id;
 	protected String jobName;
 	protected String queueName;
-	protected Map<String, ?> data;
+	protected Map<String, ? extends Serializable> data;
 	protected Priority priority;
 	protected String type;
 
@@ -62,11 +62,11 @@ public class ZorbaRequest implements Serializable{
 		this.queueName = queueName;
 	}
 
-	public Map<String, ?> getData() {
+	public Map<String, ? extends Serializable> getData() {
 		return data;
 	}
 
-	public void setData(Map<String, ?> data) {
+	public void setData(Map<String, ? extends Serializable> data) {
 		this.data = data;
 	}
 

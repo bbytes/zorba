@@ -13,6 +13,7 @@
  */
 package com.bbytes.zorba.domain;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
@@ -54,6 +55,13 @@ public interface IJob {
 	 * @param data
 	 * @throws JobExecutionException
 	 */
-	public void execute(Map<String, ?> data) throws JobExecutionException;
+	public void execute(Map<String, ? extends Serializable> data) throws JobExecutionException;
+	
+	/**
+	 * Returns back the result
+	 * 
+	 * @return
+	 */
+	Map<String, ? extends Serializable> getResult();
 
 }

@@ -13,6 +13,7 @@
  */
 package com.bbytes.zorba.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
@@ -78,6 +79,6 @@ public abstract class AbstractJob implements IJob {
 	 * @see com.bbytes.zorba.domain.IJob#execute(java.util.Map)
 	 */
 	@Override
-	public abstract void execute(Map<String, ?> data) throws JobExecutionException ;
+	public abstract void execute(Map<String, ? extends Serializable> data) throws JobExecutionException ;
 
 }

@@ -13,6 +13,8 @@
  */
 package com.bbytes.zorba.job;
 
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
@@ -35,6 +37,8 @@ public class SendMailJob extends AbstractJob implements IJob {
 
 	private static final long serialVersionUID = 3102621471351510597L;
 
+	private Map<String, String> result = new HashMap<String, String>();
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -51,7 +55,7 @@ public class SendMailJob extends AbstractJob implements IJob {
 	 * @see com.bbytes.zorba.domain.AbstractJob#execute(java.util.Map)
 	 */
 	@Override
-	public void execute(Map<String, ?> data) throws JobExecutionException {
+	public void execute(Map<String, ? extends Serializable> data) throws JobExecutionException {
 		try {
 			ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/mail-content.xml");
 			MailSender mailSender = applicationContext.getBean(MailSender.class);
@@ -60,6 +64,7 @@ public class SendMailJob extends AbstractJob implements IJob {
 		} catch (Exception e) {
 			throw new JobExecutionException(getJobName() + " failed to execute", e);
 		}
+		result.put("RESPONSE", "MAIL SENT");
 	}
 
 	public void sendMail(String from, String to, String subject, String body, MailSender mailSender) {
@@ -80,5 +85,10 @@ public class SendMailJob extends AbstractJob implements IJob {
 	@Override
 	public String getJobDescription() {
 		return "Job that sends email to the given address ,body and subject";
+	}
+
+	@Override
+	public Map<String, ? extends Serializable> getResult() {
+		return result;
 	}
 }

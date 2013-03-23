@@ -3,6 +3,7 @@
  */
 package com.bbytes.zorba.jobworker;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import com.bbytes.zorba.domain.IJob;
@@ -24,11 +25,12 @@ public interface JobProcessor {
 
 	/**
 	 * Process the job given the jobName and jobData
+	 * @param jobExecutionId TODO
 	 * @param jobName
 	 * @param jobData
 	 * @throws ProcessingException
 	 */
-	void processJob(String jobName, Map<String, ?> jobData) throws ProcessingException;
+	void processJob(String jobExecutionId, String jobName, Map<String, ? extends Serializable> jobData) throws ProcessingException;
 	
 	/**
 	 * Returns the map of job name against a {@link IJob} class
@@ -36,4 +38,5 @@ public interface JobProcessor {
 	 * @throws ProcessingException
 	 */
 	Map<String,Class<IJob>> getJobMap() throws ProcessingException;
+	
 }
