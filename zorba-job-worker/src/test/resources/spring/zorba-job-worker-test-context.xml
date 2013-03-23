@@ -30,6 +30,7 @@
 	<!-- Event Publisher -->
 	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventPublisherImpl" />
 
+	<bean class="com.bbytes.zorba.jobworker.impl.JobProcessorImpl"/>
 
 	<!-- Thread Pool Task Executors for Job Worker -->
 	<util:map id="threadPoolExecutors" key-type="com.bbytes.zorba.domain.Priority">

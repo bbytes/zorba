@@ -17,11 +17,21 @@
     <context:annotation-config />
 
     <context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
-
-    <import resource="zorba-rabbitmq-test-context.xml" />
-
+    
+    <bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:zorba-testing.properties</value>
+				<value>classpath:zorba-rabbitmq-test.properties</value>
+				<value>classpath*:zorba-job-worker-test.properties</value>
+			</list>
+		</property>
+	</bean>
+	
     <import resource="classpath*:spring/zorba-job-worker-test-context.xml" />
-
+    <import resource="zorba-rabbitmq-test-context.xml" />
+	<import resource="classpath*:spring/zorba-testing-context.xml" />
     <bean
         id="rabbitSender"
         class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender" >

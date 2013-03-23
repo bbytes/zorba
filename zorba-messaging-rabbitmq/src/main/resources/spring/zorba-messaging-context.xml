@@ -11,11 +11,10 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
 	<context:annotation-config />
-
-	<import resource="classpath*:spring/zorba-job-worker-context.xml"/>
 	<context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
-	<import resource="zorba-rabbitmq-context.xml" />
 	
+	<import resource="classpath*:spring/zorba-job-worker-context.xml"/>
+	<import resource="zorba-rabbitmq-context.xml" />
 
 	<bean id="rabbitSender" class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender">
 

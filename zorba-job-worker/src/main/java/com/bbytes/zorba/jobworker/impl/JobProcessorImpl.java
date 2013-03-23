@@ -17,6 +17,9 @@ package com.bbytes.zorba.jobworker.impl;
 
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import com.bbytes.zorba.domain.IJob;
 import com.bbytes.zorba.jobworker.JobProcessor;
 import com.bbytes.zorba.jobworker.exception.ProcessingException;
 
@@ -28,14 +31,26 @@ import com.bbytes.zorba.jobworker.exception.ProcessingException;
  * @version 
  */
 public class JobProcessorImpl implements JobProcessor {
+	
+	private Map<String, Class<IJob>> jobMap;
+	
+	private static final Logger log = Logger.getLogger(JobProcessorImpl.class);
 
 	/* (non-Javadoc)
 	 * @see com.bbytes.zorba.jobworker.JobProcessor#processJob(java.lang.String, java.util.Map)
 	 */
 	@Override
 	public void processJob(String jobName, Map<String, ?> jobData) throws ProcessingException {
-		// TODO Auto-generated method stub
+		if(jobName==null) {
+			String message = "jobName is null";
+			log.error(message);
+			throw new ProcessingException(message);
+		}
+	}
 
+	@Override
+	public Map<String, Class<IJob>> getJobMap() throws ProcessingException {
+		return jobMap;
 	}
 
 }
