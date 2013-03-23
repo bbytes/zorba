@@ -20,12 +20,7 @@ public class ProcessingException extends Exception {
 	/**
 	 * 
 	 */
-<<<<<<< HEAD:zorba-job-worker/src/main/java/com/bbytes/zorba/jobworker/exception/ProcessingException.java
 	public ProcessingException() {
-		// TODO Auto-generated constructor stub
-=======
-	public JobProcessingException() {
->>>>>>> a4d397dbb2189733c0e5b207f94c59d55fb79397:zorba-job-worker/src/main/java/com/bbytes/zorba/jobworker/exception/JobProcessingException.java
 	}
 
 	/**

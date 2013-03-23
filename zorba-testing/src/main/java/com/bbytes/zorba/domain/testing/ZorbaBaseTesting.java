@@ -13,21 +13,16 @@
  */
 package com.bbytes.zorba.domain.testing;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import java.util.Date;
-
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
-import com.bbytes.zorba.domain.JobEvent;
 import com.bbytes.zorba.domain.JobLifeCycle;
 import com.bbytes.zorba.domain.Priority;
-import com.bbytes.zorba.domain.PriorityQueue;
 import com.bbytes.zorba.job.SendMailJob;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 
