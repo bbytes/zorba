@@ -3,6 +3,8 @@
  */
 package com.bbytes.zorba.persistence;
 
+import org.springframework.stereotype.Repository;
+
 import com.bbytes.zorba.domain.IJob;
 
 /**
@@ -11,6 +13,7 @@ import com.bbytes.zorba.domain.IJob;
  * @author Dhanush Gopinath
  *
  */
-public interface IJobDao extends IZorbaDao<IJob>{
+@Repository
+public interface JobDao extends ZorbaDao<IJob,String>{
 
 }

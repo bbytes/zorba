@@ -22,7 +22,7 @@ public class RabbitMQReceiver implements IRabbitMQReceiver {
 	@Autowired
 	private RabbitOperations rabbitOperations;
 
-
+	
 	public ZorbaRequest receive(String queueName) throws MessagingException {
 		ZorbaRequest request = null;
 		if (queueName != null) {

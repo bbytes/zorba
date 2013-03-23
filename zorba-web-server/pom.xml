@@ -9,9 +9,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 
-	<groupId>com.bbytes</groupId>
 	<artifactId>zorba-web-server</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>zorba-web-server</name>
 	<packaging>war</packaging>
 
@@ -19,6 +17,18 @@
 		Zorba Web Project, that will provide the UI interface for monitoring the jobs.
 	</description>
 	<dependencies>
+		<dependency>
+			<groupId>com.bbytes</groupId>
+			<artifactId>zorba-messaging</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.bbytes</groupId>
+			<artifactId>zorba-persistence</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

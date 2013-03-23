@@ -1,6 +1,7 @@
 package com.bbytes.zorba.persistence.mongo;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,30 +11,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
+import com.bbytes.zorba.persistence.JobLifeCycleDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ={ "classpath:spring/zorba-persistence-mongo-test-context.xml" })
-public class PriorityQueueRepositoryTest extends ZorbaBaseTesting{
+public class JobLifeCycleRepositoryTest extends ZorbaBaseTesting{
 	
 	@Autowired
-	PriorityQueueRepository priorityQueueRepo;
+	JobLifeCycleDao jobLifeCycleDao;
 
 	@Before
 	public void setUp() throws Exception {
-		insertPriorityQueues();
+		insertJobLifeCycleObjects();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		priorityQueueRepo.deleteAll();
+		jobLifeCycleDao.deleteAll();
 	}
 
 	@Test
 	public void testGetPriorityQueue() {
-		assertNotNull(priorityQueueRepo.getPriorityQueue(Priority.CRITICAL));
-		assertNotNull(priorityQueueRepo.getPriorityQueue(Priority.LOW));
+		assertNotNull(jobLifeCycleDao.findOne("1"));
+		assertNotNull(jobLifeCycleDao.findOne("2"));
+		assertNull(jobLifeCycleDao.findOne("3"));
 	}
 
 }

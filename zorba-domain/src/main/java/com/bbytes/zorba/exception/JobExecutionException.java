@@ -21,7 +21,7 @@ public class JobExecutionException extends Exception {
 	 * 
 	 */
 	public JobExecutionException() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	/**
@@ -29,7 +29,6 @@ public class JobExecutionException extends Exception {
 	 */
 	public JobExecutionException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -37,7 +36,6 @@ public class JobExecutionException extends Exception {
 	 */
 	public JobExecutionException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -46,7 +44,6 @@ public class JobExecutionException extends Exception {
 	 */
 	public JobExecutionException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
 }

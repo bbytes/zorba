@@ -11,32 +11,25 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.bbytes.zorba.jobworker.event.impl;
+package com.bbytes.zorba.handler;
 
 import com.bbytes.zorba.domain.JobEvent;
-import com.bbytes.zorba.jobworker.event.IJobEventListener;
 
 /**
- * The default job event listener that publishes all the event to the event queue.The events form
- * the event queue is processed at web server level and stored in persistence layer like mongo db
+ * An interface that handles the job event from event queue and stores it in persistence layer
  * 
  * @author Thanneer
  * 
  * @version
  */
-public class JobEventListenerImpl implements IJobEventListener {
+public interface ZorbaJobEventQueueHandler {
 
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Handle the {@link JobEvent} and fire it to the listeners registered.
 	 * 
-	 * @see
-	 * org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context
-	 * .ApplicationEvent)
+	 * @param response
+	 * @throws MessagingException
 	 */
-	@Override
-	public void onApplicationEvent(JobEvent event) {
-		// TODO: Need to publish the event to event queue 
-		System.out.println("event status:- " + event.getJobStatus());
-	}
+	public void handleZorbaJobEvent(JobEvent event) throws Exception;
 
 }

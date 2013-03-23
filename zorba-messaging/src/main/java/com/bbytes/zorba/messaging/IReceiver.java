@@ -16,7 +16,7 @@ public interface IReceiver {
 
 	/**
 	 * Receives message from a specific queue
-	 * @return TODO
+	 * @return {@link ZorbaRequest}
 	 * @throws MessagingException
 	 */
 	public ZorbaRequest receive(String queueName) throws MessagingException;
@@ -24,7 +24,7 @@ public interface IReceiver {
 	/**
 	 * Receives message from a priority queue
 	 * @param priority
-	 * @return TODO
+	 * @return {@link ZorbaRequest}
 	 * @throws MessagingException
 	 */
 	public ZorbaRequest receive(Priority priority) throws MessagingException;

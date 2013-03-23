@@ -39,7 +39,7 @@ public interface ISender {
 	 * Receives the response from the response queue
 	 * 
 	 * @param queueName
-	 * @return TODO
+	 * @return {@link ZorbaResponse}
 	 * @throws MessagingException
 	 */
 	ZorbaResponse receiveResponse(String queueName) throws MessagingException;
@@ -48,7 +48,7 @@ public interface ISender {
 	 * Receives the response from the response queue by priority
 	 * 
 	 * @param queueName
-	 * @return TODO
+	 * @return {@link ZorbaResponse}
 	 * @throws MessagingException
 	 */
 	ZorbaResponse receiveResponse(Priority priority) throws MessagingException;

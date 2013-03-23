@@ -20,15 +20,15 @@ public class MessagingException extends Exception {
 	 * 
 	 */
 	public MessagingException() {
-		// TODO Auto-generated constructor stub
+		
 	}
+	
 
 	/**
 	 * @param message
 	 */
 	public MessagingException(String message) {
 		super(message);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -36,7 +36,6 @@ public class MessagingException extends Exception {
 	 */
 	public MessagingException(Throwable cause) {
 		super(cause);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -45,7 +44,6 @@ public class MessagingException extends Exception {
 	 */
 	public MessagingException(String message, Throwable cause) {
 		super(message, cause);
-		// TODO Auto-generated constructor stub
 	}
 
 }
