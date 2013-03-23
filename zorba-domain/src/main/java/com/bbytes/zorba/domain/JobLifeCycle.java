@@ -38,6 +38,8 @@ public class JobLifeCycle extends Entity {
 	private Date runDuration;
 
 	private JobStatusType currentStatus;
+	
+	private String description;
 
 	// to store error information incase job failed
 	private String stackTrace;
@@ -146,5 +148,19 @@ public class JobLifeCycle extends Entity {
 	 */
 	public void setCurrentStatus(JobStatusType currentStatus) {
 		this.currentStatus = currentStatus;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }
