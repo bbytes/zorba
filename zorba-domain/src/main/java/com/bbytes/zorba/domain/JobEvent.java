@@ -13,6 +13,8 @@
  */
 package com.bbytes.zorba.domain;
 
+import java.util.Date;
+
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -26,21 +28,20 @@ public class JobEvent extends ApplicationEvent {
 
 	private static final long serialVersionUID = 3825391489928185524L;
 
-	private JobEventType jobEventType;
+	private JobStatusType jobStatus;
 
 	private IJob job;
 
-	public JobEvent(JobEventType jobEventType, IJob job, Object eventObject) {
-		super(eventObject);
-		this.jobEventType = jobEventType;
-		this.job = job;
-	}
+	private String jobExecutionId;
 
-	/**
-	 * @return the jobEventType
-	 */
-	public JobEventType getJobEventType() {
-		return jobEventType;
+	private Date eventTime;
+
+	public JobEvent(String jobExecutionId, JobStatusType jobStatus, IJob job, Object eventObject, Date eventTime) {
+		super(eventObject);
+		this.jobExecutionId = jobExecutionId;
+		this.jobStatus = jobStatus;
+		this.job = job;
+		this.setEventTime(eventTime);
 	}
 
 	/**
@@ -55,6 +56,27 @@ public class JobEvent extends ApplicationEvent {
 	 */
 	public IJob getJob() {
 		return job;
+	}
+
+	/**
+	 * @return the jobStatus
+	 */
+	public JobStatusType getJobStatus() {
+		return jobStatus;
+	}
+
+	/**
+	 * @return the jobExecutionId
+	 */
+	public String getJobExecutionId() {
+		return jobExecutionId;
+	}
+
+	/**
+	 * @return the eventTime
+	 */
+	public Date getEventTime() {
+		return eventTime;
 	}
 
 }

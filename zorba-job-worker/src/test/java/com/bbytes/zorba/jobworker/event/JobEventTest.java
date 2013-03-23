@@ -26,7 +26,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbytes.zorba.domain.JobEvent;
-import com.bbytes.zorba.domain.JobEventType;
+import com.bbytes.zorba.domain.JobStatusType;
 
 /**
  * 
@@ -52,7 +52,7 @@ public class JobEventTest implements IJobEventListener{
 	
 	@Test
 	public void testEventPublishAndListener(){
-		JobEvent jobEvent = new JobEvent(JobEventType.JOB_STARTED, null, "Test event");
+		JobEvent jobEvent = new JobEvent("testid",JobStatusType.STARTED, null, "Test event");
 		StaticApplicationContext context=new StaticApplicationContext();
 		context.addApplicationListener(this);
 		context.refresh();

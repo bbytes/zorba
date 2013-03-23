@@ -15,9 +15,13 @@
  */
 package com.bbytes.zorba.domain.testing;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import com.bbytes.zorba.domain.JobEvent;
+import com.bbytes.zorba.domain.JobLifeCycle;
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.domain.PriorityQueue;
 
@@ -34,26 +38,18 @@ public class ZorbaBaseTesting {
 	@Autowired
 	protected MongoTemplate mongoTemplate;
 	
-	protected void insertPriorityQueues() {
-		PriorityQueue pq = new PriorityQueue();
-		pq.setPriority(Priority.LOW);
-		pq.setQueueName("pq.low.test");
-		mongoTemplate.save(pq);
+	protected void insertJobLifeCycleObjects() {
+		JobLifeCycle jobLifeCycle= new JobLifeCycle();
+		jobLifeCycle.setId("1");
+		jobLifeCycle.setCreationDate(new Date());
+		jobLifeCycle.setJobExecutionId("test1");
+		mongoTemplate.save(jobLifeCycle);
 		
-		pq = new PriorityQueue();
-		pq.setPriority(Priority.HIGH);
-		pq.setQueueName("pq.high.test");
-		mongoTemplate.save(pq);
-		
-		pq = new PriorityQueue();
-		pq.setPriority(Priority.CRITICAL);
-		pq.setQueueName("pq.critical.test");
-		mongoTemplate.save(pq);
-		
-		pq = new PriorityQueue();
-		pq.setPriority(Priority.MEDIUM);
-		pq.setQueueName("pq.medium.test");
-		mongoTemplate.save(pq);
+		JobLifeCycle jobLifeCycle2= new JobLifeCycle();
+		jobLifeCycle2.setId("2");
+		jobLifeCycle2.setCreationDate(new Date());
+		jobLifeCycle2.setJobExecutionId("test2");
+		mongoTemplate.save(jobLifeCycle2);
 		
 	}
 }

@@ -11,17 +11,27 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.bbytes.zorba.domain;
+package com.bbytes.zorba.handler.impl;
+
+import com.bbytes.zorba.handler.ZorbaJobEventQueueErrorHandler;
 
 /**
- * 
+ * Logs all the job event queue related error 
  * 
  * @author Thanneer
  * 
- * @version
+ * @version 0.0.1
  */
-public enum JobEventType {
+public class ZorbaJobEventQueueErrorHandlerImpl implements ZorbaJobEventQueueErrorHandler {
 
-	JOB_STARTED, JOB_ENDED, JOB_FAILED, JOB_RUNNING, JOB_PAUSED;
+	/* (non-Javadoc)
+	 * @see org.springframework.util.ErrorHandler#handleError(java.lang.Throwable)
+	 */
+	@Override
+	public void handleError(Throwable t) {
+		// log error
+		
+	}
+
 
 }

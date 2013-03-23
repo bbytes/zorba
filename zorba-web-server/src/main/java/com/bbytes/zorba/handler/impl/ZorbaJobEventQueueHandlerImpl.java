@@ -11,32 +11,36 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.bbytes.zorba.jobworker.event.impl;
+package com.bbytes.zorba.handler.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.bbytes.zorba.domain.JobEvent;
-import com.bbytes.zorba.jobworker.event.IJobEventListener;
+import com.bbytes.zorba.handler.ZorbaJobEventQueueHandler;
+import com.bbytes.zorba.persistence.JobLifeCycleDao;
 
 /**
- * The default job event listener that publishes all the event to the event queue.The events form
- * the event queue is processed at web server level and stored in persistence layer like mongo db
+ * 
+ * Handles all job event from job event queue and stores it in persistence layer
  * 
  * @author Thanneer
  * 
- * @version
+ * @version 0.0.1
  */
-public class JobEventListenerImpl implements IJobEventListener {
+public class ZorbaJobEventQueueHandlerImpl implements ZorbaJobEventQueueHandler {
 
+	@Autowired
+	private JobLifeCycleDao jobLifeCycleDao;
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context
-	 * .ApplicationEvent)
+	 * com.bbytes.zorba.handler.ZorbaJobEventQueueHandler#handleZorbaJobEvent(com.bbytes.zorba.domain
+	 * .JobEvent)
 	 */
 	@Override
-	public void onApplicationEvent(JobEvent event) {
-		// TODO: Need to publish the event to event queue 
-		System.out.println("event status:- " + event.getJobStatus());
+	public void handleZorbaJobEvent(JobEvent event) throws Exception {
+		jobLifeCycleDao.
 	}
 
 }
