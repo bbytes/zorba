@@ -33,7 +33,14 @@
 	<!-- Event Publisher -->
 	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventPublisherImpl" />
 
-	<bean class="com.bbytes.zorba.jobworker.impl.JobProcessorImpl"/>
+	<bean class="com.bbytes.zorba.jobworker.impl.JobProcessorImpl">
+		<property name="jobMap">
+			<map>
+				<entry key="Send-Mail-Job" value="com.bbytes.zorba.job.SendMailJob"  value-type="java.lang.Class">
+				</entry>
+			</map>
+		</property>
+	</bean>
 
 	<!-- Thread Pool Task Executors for Job Worker -->
 	<util:map id="threadPoolExecutors" key-type="com.bbytes.zorba.domain.Priority">

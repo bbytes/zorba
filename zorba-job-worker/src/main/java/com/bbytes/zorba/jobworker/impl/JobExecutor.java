@@ -72,7 +72,7 @@ public class JobExecutor implements Runnable {
 	@Override
 	public void run() {
 		try {
-			JobEvent started = new JobEvent(request.getId(), JobStatusType.STARTED, null, request.getJobName());
+			JobEvent started = new JobEvent(request.getId(), JobStatusType.STARTED, null, this);
 			eventPublisher.publish(started);
 			jobProcessor.processJob(request.getId(), request.getJobName(), request.getData());
 		} catch (ProcessingException e) {

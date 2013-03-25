@@ -17,10 +17,12 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 import com.bbytes.zorba.domain.AbstractJob;
 import com.bbytes.zorba.domain.IJob;
@@ -35,7 +37,6 @@ import com.bbytes.zorba.exception.JobExecutionException;
  */
 public class SendMailJob extends AbstractJob implements IJob {
 
-	private static final long serialVersionUID = 3102621471351510597L;
 
 	private Map<String, String> result = new HashMap<String, String>();
 	
@@ -57,7 +58,7 @@ public class SendMailJob extends AbstractJob implements IJob {
 	@Override
 	public void execute(Map<String, ? extends Serializable> data) throws JobExecutionException {
 		try {
-			ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/mail-content.xml");
+			ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/spring/zorba-mail-context.xml");
 			MailSender mailSender = applicationContext.getBean(MailSender.class);
 			sendMail((String) data.get("from"), (String) data.get("to"), (String) data.get("subject"),
 					(String) data.get("body"), mailSender);

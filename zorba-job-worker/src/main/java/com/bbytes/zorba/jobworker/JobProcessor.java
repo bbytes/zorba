@@ -39,4 +39,12 @@ public interface JobProcessor {
 	 */
 	Map<String,Class<IJob>> getJobMap() throws ProcessingException;
 	
+	
+	/**
+	 * Sets the job Map for the processor
+	 * @param jobMap
+	 * @throws ProcessingException
+	 */
+	void setJobMap(Map<String,Class<IJob>>  jobMap) throws ProcessingException;
+	
 }

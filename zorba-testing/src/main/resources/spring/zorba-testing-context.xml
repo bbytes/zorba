@@ -13,8 +13,6 @@
 	<context:spring-configured />
 	<context:annotation-config />
 
-	<context:component-scan base-package="com.bbytes.zorba.domain.testing" />
-
 	<bean id="embeddedMongoDBFactory" class="com.bbytes.zorba.domain.testing.EmbeddedMongoDBFactory">
 		<constructor-arg name="databaseName" value="zorbaTest" />
 	</bean>
@@ -29,11 +27,13 @@
 		<property name="priority" value="${test.zorbareq.priority}" />
 		<property name="type" value="${test.zorbareq.type}" />
 	</bean>
-	<bean id="zorbaResponse"
-		class="com.bbytes.zorba.jobworker.domain.ZorbaResponse"
+	<bean id="zorbaResponse" class="com.bbytes.zorba.jobworker.domain.ZorbaResponse"
 		scope="prototype">
 		<property name="jobName" value="${test.zorbareq.jobName}" />
 		<property name="type" value="${test.zorbareq.type}" />
 	</bean>
+
+	<bean id="sendMailJob" class="com.bbytes.zorba.job.SendMailJob" />
+
 </beans>
 

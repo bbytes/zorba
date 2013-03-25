@@ -60,26 +60,26 @@ public class JobProcessorImpl implements JobProcessor {
 		try {
 			job = jobClass.newInstance();
 			
-			JobEvent started = new JobEvent(jobExecutionId, JobStatusType.RUNNNING, job, null);
+			JobEvent started = new JobEvent(jobExecutionId, JobStatusType.RUNNNING, job, this);
 			eventPublisher.publish(started);
 			
 			job.execute(jobData);
 			
-			JobEvent finished = new JobEvent(jobExecutionId, JobStatusType.COMPLETED, job, job.getResult());
+			JobEvent finished = new JobEvent(jobExecutionId, JobStatusType.COMPLETED, job, this);
 			eventPublisher.publish(finished);
 			
 		} catch (InstantiationException e) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, null);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
 			throw new ProcessingException();
 		} catch (IllegalAccessException e) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, null);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
 			throw new ProcessingException();
 		} catch (JobExecutionException e) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, null);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
 			throw new ProcessingException();
@@ -89,6 +89,11 @@ public class JobProcessorImpl implements JobProcessor {
 	@Override
 	public Map<String, Class<IJob>> getJobMap() throws ProcessingException {
 		return jobMap;
+	}
+
+	@Override
+	public void setJobMap(Map<String, Class<IJob>> jobMap) throws ProcessingException {
+		this.jobMap = jobMap;		
 	}
 
 }
