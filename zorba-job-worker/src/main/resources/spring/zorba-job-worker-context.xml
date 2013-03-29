@@ -27,7 +27,7 @@
 	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventListenerImpl" />
 
 	<!-- Event Publisher -->
-	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventPublisherImpl" /
+	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventPublisherImpl"/>
 	
 	<bean class="com.bbytes.zorba.jobworker.impl.JobProcessorImpl"/>
 

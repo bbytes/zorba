@@ -14,7 +14,6 @@
 	<context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
 	
 	<import resource="classpath*:spring/zorba-job-worker-context.xml"/>
-	<import resource="zorba-rabbitmq-context.xml" />
 
 	<bean id="rabbitSender" class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender">
 
@@ -54,6 +53,9 @@
 			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
 	</bean>
 
+	<!-- load rabbit mq after resources at the last -->
+	<import resource="zorba-rabbitmq-context.xml" />
+	
 	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
 	<task:executor id="myExecutor" pool-size="15-30" queue-capacity="100"/>
 	<task:scheduler id="myScheduler" pool-size="20" />

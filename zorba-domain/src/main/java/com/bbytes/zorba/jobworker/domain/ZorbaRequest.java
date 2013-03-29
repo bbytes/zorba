@@ -16,7 +16,9 @@
 package com.bbytes.zorba.jobworker.domain;
 
 import java.io.Serializable;
-import java.util.Map;
+
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.bbytes.zorba.domain.Priority;
 
@@ -34,7 +36,10 @@ public class ZorbaRequest implements Serializable{
 	protected String id;
 	protected String jobName;
 	protected String queueName;
-	protected Map<String, ? extends Serializable> data;
+	
+//	protected Map<String, Serializable> data;
+	
+	protected ZorbaData<String,Serializable> data;
 	protected Priority priority;
 	protected String type;
 
@@ -62,13 +67,25 @@ public class ZorbaRequest implements Serializable{
 		this.queueName = queueName;
 	}
 
-	public Map<String, ? extends Serializable> getData() {
+/*	public Map<String, Serializable> getData() {
 		return data;
 	}
 
-	public void setData(Map<String, ? extends Serializable> data) {
+	@JsonDeserialize(using=ZorbaDataDeserializer.class)
+	public void setData(Map<String, Serializable> data) {
+		this.data = data;
+	}*/
+	
+	@JsonSerialize(using=ZorbaDataSerializer.class)
+	public ZorbaData<String,Serializable> getData() {
+		return data;
+	}
+	
+	@JsonDeserialize(using=ZorbaDataDeserializer.class)
+	public void setData(ZorbaData<String,Serializable> data) {
 		this.data = data;
 	}
+	
 
 	public Priority getPriority() {
 		return priority;

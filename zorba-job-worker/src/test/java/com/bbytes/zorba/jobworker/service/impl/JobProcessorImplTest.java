@@ -15,8 +15,6 @@
  */
 package com.bbytes.zorba.jobworker.service.impl;
 
-import static org.junit.Assert.*;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +25,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 import com.bbytes.zorba.jobworker.JobProcessor;
+import com.bbytes.zorba.jobworker.domain.ZorbaData;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.exception.ProcessingException;
 
@@ -58,13 +57,12 @@ public class JobProcessorImplTest extends ZorbaBaseTesting {
 	}
 
 	/**
-	 * Test method for {@link com.bbytes.zorba.jobworker.impl.JobProcessorImpl#processJob(java.lang.String, java.lang.String, java.util.Map)}.
+	 * Test method for {@link com.bbytes.zorba.jobworker.impl.JobProcessorImpl#processJob(java.lang.String, java.lang.String, ZorbaData)}.
 	 * @throws ProcessingException 
 	 */
 	@Test
 	public void testProcessJob() throws ProcessingException {
 		ZorbaRequest req = createZorbaRequestForSendMailJob();
 		jobProcessor.processJob(req.getId(), req.getJobName(), req.getData());
-		
 	}
 }

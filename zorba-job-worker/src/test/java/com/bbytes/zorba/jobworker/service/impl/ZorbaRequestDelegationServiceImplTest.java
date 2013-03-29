@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.task.TaskRejectedException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -44,10 +45,28 @@ public class ZorbaRequestDelegationServiceImplTest extends ZorbaBaseTesting {
 		zorbaRequestDelegationService.processZorbaRequest(request);
 	}
 
+	
+	
+	/**
+	 * A TaskRejectedException will be thrown in this case because we are sending more requests than
+	 * the TaskExecutor can handle
+	 * 
+	 * @throws ProcessingException
+	 * 
+	 */
+	@Test(expected=TaskRejectedException.class)
+	public void testProcessZorbaRequestLowPriority() throws ProcessingException {
+		ZorbaRequest request = createZorbaRequestForSendMailJob(Priority.LOW);
+		for(int i=0;i<20;i++) {
+			zorbaRequestDelegationService.processZorbaRequest(request);
+		}
+	}
+
 	@Test(expected=ProcessingException.class)
 	public void testProcessNullZorbaRequest() throws ProcessingException {
 		zorbaRequestDelegationService.processZorbaRequest(null);
 	}
+	
 	@Test
 	public void testIsThreadAvailable() throws ProcessingException {
 		assertTrue(zorbaRequestDelegationService.isThreadAvailable(Priority.LOW));

@@ -35,8 +35,11 @@ public class JobEventListenerImpl implements IJobEventListener {
 	 */
 	@Override
 	public void onApplicationEvent(JobEvent event) {
-		// TODO: Need to publish the event to event queue 
 		System.out.println("event status:- " + event.getJobStatus());
+		/*
+		 * TODO this class needs to be moved to messaging and implement sending the response to
+		 * jobevent queue and reply queue
+		 */
 	}
 
 }

@@ -103,14 +103,4 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 		assertNotNull(response);
 		assertEquals(id, response.getId());
 	}
-
-	
-	@Test
-	public void testSendZorbaRequestPriorityBySynchRequestHandler() throws MessagingException, InterruptedException {
-		Priority p = Priority.HIGH;
-		String id = UUID.randomUUID().toString();
-		zorbaRequest.setId(id);
-		sender.send(zorbaRequest,p);
-	}
-
 }

@@ -49,6 +49,11 @@
 		p:messageConverter-ref="jsonMessageConverter">
 	</bean>
 
+	<bean id="pqSynchReqHandler" class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchRequestHandlerImpl">
+		<property name="rabbitMQReceiver" ref="rabbitReceiver"/>
+		<property name="zorbaRquestDelegationService" ref="zorbaRquestDelegationService"/>
+	</bean>
+
 <!-- 	<bean id="pqRequestHandler"
 		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueRequestHandlerImpl">
 		<property name="priorityQueueNames">

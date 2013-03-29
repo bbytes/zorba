@@ -44,6 +44,26 @@ public class PriorityQueueSynchRequestHandlerImpl implements ZorbaSynchRequestHa
 	@Autowired
 	private IRabbitMQReceiver rabbitMQReceiver;
 
+	
+	public ZorbaRequestDelegationService getZorbaRquestDelegationService() {
+		return zorbaRquestDelegationService;
+	}
+
+
+	public void setZorbaRquestDelegationService(ZorbaRequestDelegationService zorbaRquestDelegationService) {
+		this.zorbaRquestDelegationService = zorbaRquestDelegationService;
+	}
+
+	public IRabbitMQReceiver getRabbitMQReceiver() {
+		return rabbitMQReceiver;
+	}
+
+
+	public void setRabbitMQReceiver(IRabbitMQReceiver rabbitMQReceiver) {
+		this.rabbitMQReceiver = rabbitMQReceiver;
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -51,7 +71,7 @@ public class PriorityQueueSynchRequestHandlerImpl implements ZorbaSynchRequestHa
 	 * com.bbytes.zorba.messaging.rabbitmq.listener.ZorbaSynchRequestHandler#handleZorbaRequests()
 	 */
 	@Override
-	@Scheduled(fixedDelay = 500)
+	@Scheduled(fixedDelay = 30000)
 	@Async
 	public void handleZorbaRequests() throws MessagingException {
 		handlePriorityRequests(Priority.CRITICAL);
@@ -72,6 +92,8 @@ public class PriorityQueueSynchRequestHandlerImpl implements ZorbaSynchRequestHa
 		try {
 			if (zorbaRquestDelegationService.isThreadAvailable(priority)) {
 				ZorbaRequest request = rabbitMQReceiver.receive(priority);
+				if(request == null)
+					return;
 				zorbaRquestDelegationService.processZorbaRequest(request);
 			}
 		} catch (ProcessingException e) {

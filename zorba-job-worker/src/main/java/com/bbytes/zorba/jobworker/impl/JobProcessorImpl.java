@@ -24,6 +24,7 @@ import com.bbytes.zorba.domain.JobEvent;
 import com.bbytes.zorba.domain.JobStatusType;
 import com.bbytes.zorba.exception.JobExecutionException;
 import com.bbytes.zorba.jobworker.JobProcessor;
+import com.bbytes.zorba.jobworker.domain.ZorbaData;
 import com.bbytes.zorba.jobworker.event.IJobEventPublisher;
 import com.bbytes.zorba.jobworker.exception.ProcessingException;
 
@@ -49,40 +50,44 @@ public class JobProcessorImpl implements JobProcessor {
 	 * @see com.bbytes.zorba.jobworker.JobProcessor#processJob(java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void processJob(String jobExecutionId, String jobName, Map<String, ? extends Serializable> jobData) throws ProcessingException {
+	public void processJob(String jobExecutionId, String jobName, ZorbaData<String, Serializable> jobData) throws ProcessingException {
 		if (jobName == null) {
 			String message = "jobName is null";
 			log.error(message);
 			throw new ProcessingException(message);
 		}
 		Class<IJob> jobClass = jobMap.get(jobName);
+		if(jobClass == null) {
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, null, this);
+			String description = "Class for job name "+ jobName+" not registered";
+			failed.setDescription(description);
+			eventPublisher.publish(failed);
+			log.error(description);
+			throw new ProcessingException(description);
+		}
 		IJob job = null;
 		try {
 			job = jobClass.newInstance();
-			
 			JobEvent started = new JobEvent(jobExecutionId, JobStatusType.RUNNNING, job, this);
 			eventPublisher.publish(started);
-			
 			job.execute(jobData);
-			
 			JobEvent finished = new JobEvent(jobExecutionId, JobStatusType.COMPLETED, job, this);
 			eventPublisher.publish(finished);
-			
 		} catch (InstantiationException e) {
 			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
-			throw new ProcessingException();
+			throw new ProcessingException(e);
 		} catch (IllegalAccessException e) {
 			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
-			throw new ProcessingException();
+			throw new ProcessingException(e);
 		} catch (JobExecutionException e) {
 			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
-			throw new ProcessingException();
+			throw new ProcessingException(e);
 		}
 	}
 
