@@ -30,11 +30,13 @@
 	<rabbit:admin id="amqpAdmin" auto-startup="true"
 		connection-factory="rabbitConnectionFactory" />
 
+	<bean id="zorbaObjectMapper" class="com.bbytes.zorba.messaging.rabbitmq.json.ZorbaObjectMapper">
+	</bean>
+
 	<bean id="jsonMessageConverter"
 		class="org.springframework.amqp.support.converter.JsonMessageConverter">
-		<!-- <property name="jsonObjectMapper">
-			<bean class="com.bbytes.zorba.messaging.rabbitmq.json.ZorbaObjectMapper"></bean>
-		</property> -->
+		<property name="jsonObjectMapper" ref="zorbaObjectMapper"/>
+			
 	</bean>
 
 	<!-- A template for sending messages and performing other commands to RabbitMQ -->

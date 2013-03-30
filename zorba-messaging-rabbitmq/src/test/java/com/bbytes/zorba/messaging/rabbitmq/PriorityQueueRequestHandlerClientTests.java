@@ -1,7 +1,5 @@
 package com.bbytes.zorba.messaging.rabbitmq;
 
-import static org.junit.Assert.*;
-
 import java.util.UUID;
 
 import org.junit.After;
@@ -17,7 +15,6 @@ import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
 import com.bbytes.zorba.messaging.exception.MessagingException;
-import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver;
 import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
 import com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchRequestHandlerImpl;
 

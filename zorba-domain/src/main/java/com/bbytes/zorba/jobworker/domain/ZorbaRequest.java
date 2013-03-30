@@ -17,9 +17,6 @@ package com.bbytes.zorba.jobworker.domain;
 
 import java.io.Serializable;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
 import com.bbytes.zorba.domain.Priority;
 
 /**
@@ -76,12 +73,12 @@ public class ZorbaRequest implements Serializable{
 		this.data = data;
 	}*/
 	
-	@JsonSerialize(using=ZorbaDataSerializer.class)
+//	@JsonSerialize(using=ZorbaDataSerializer.class)
 	public ZorbaData<String,Serializable> getData() {
 		return data;
 	}
 	
-	@JsonDeserialize(using=ZorbaDataDeserializer.class)
+//	@JsonDeserialize(using=ZorbaDataDeserializer.class)
 	public void setData(ZorbaData<String,Serializable> data) {
 		this.data = data;
 	}

@@ -28,6 +28,7 @@ import com.bbytes.zorba.jobworker.domain.ZorbaData;
  * @version
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
+//@JsonSerialize(using=BeanSerializer.class)
 public class CustomAddress implements Serializable {
 
 

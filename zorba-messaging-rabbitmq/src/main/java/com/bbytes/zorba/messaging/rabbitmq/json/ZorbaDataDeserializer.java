@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.bbytes.zorba.jobworker.domain;
+package com.bbytes.zorba.messaging.rabbitmq.json;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -23,6 +23,8 @@ import org.codehaus.jackson.JsonToken;
 import org.codehaus.jackson.map.DeserializationContext;
 import org.codehaus.jackson.map.JsonDeserializer;
 import org.codehaus.jackson.map.TypeDeserializer;
+
+import com.bbytes.zorba.jobworker.domain.ZorbaData;
 
 /**
  * 
@@ -42,7 +44,7 @@ public class ZorbaDataDeserializer extends JsonDeserializer<ZorbaData<String,Ser
 			t = jp.nextToken();
 		}
 		ZorbaData<String,Serializable> zorbaData = new ZorbaData<String,Serializable>();
-		for (; t == JsonToken.FIELD_NAME; t = jp.nextToken()) {
+		for (; t != JsonToken.END_OBJECT; t = jp.nextToken()) {
 			String key = jp.getCurrentName();
 			System.out.println(jp.getCurrentName());
 			t = jp.nextToken();
@@ -76,6 +78,8 @@ public class ZorbaDataDeserializer extends JsonDeserializer<ZorbaData<String,Ser
 			case START_OBJECT:
 				//handle objects inside the object
 				Object customObject = deserializeFromCustomObject(jp, ctxt);
+				zorbaData.put(key, (Serializable) customObject);
+				break;
 			case FIELD_NAME:
 			case END_OBJECT: // added to resolve [JACKSON-319], possible related issues
 				break;
@@ -92,14 +96,13 @@ public class ZorbaDataDeserializer extends JsonDeserializer<ZorbaData<String,Ser
 			t = jp.nextToken();
 		}
 		
-		for (; t == JsonToken.FIELD_NAME; t = jp.nextToken()) {
+		for (; t != JsonToken.END_OBJECT; t = jp.nextToken()) {
 			String key = jp.getCurrentName();
 			System.out.println(key);
 			t = jp.nextToken();
 			// and then others, generally requiring use of @JsonCreator
 			switch (t) {
 			case VALUE_STRING:
-
 				String strValue = jp.getText();
 				break;
 			case VALUE_NUMBER_INT:
