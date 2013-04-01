@@ -26,6 +26,9 @@ import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
  * deserializer for the {@link ZorbaData} object that is passed along with {@link ZorbaRequest} and
  * {@link ZorbaResponse}
  * 
+ * @see ZorbaDataDeserializer
+ * @see ZorbaDataSerializer
+ * 
  * @author Dhanush Gopinath
  * 
  * @version 0.0.1

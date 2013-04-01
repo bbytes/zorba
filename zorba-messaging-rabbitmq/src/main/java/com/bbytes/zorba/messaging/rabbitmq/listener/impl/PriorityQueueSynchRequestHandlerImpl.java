@@ -32,7 +32,8 @@ import com.bbytes.zorba.messaging.rabbitmq.listener.ZorbaSynchRequestHandler;
  * 
  * @author Dhanush Gopinath
  * 
- * @version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public class PriorityQueueSynchRequestHandlerImpl implements ZorbaSynchRequestHandler {
 
@@ -57,7 +58,6 @@ public class PriorityQueueSynchRequestHandlerImpl implements ZorbaSynchRequestHa
 	public IRabbitMQReceiver getRabbitMQReceiver() {
 		return rabbitMQReceiver;
 	}
-
 
 	public void setRabbitMQReceiver(IRabbitMQReceiver rabbitMQReceiver) {
 		this.rabbitMQReceiver = rabbitMQReceiver;

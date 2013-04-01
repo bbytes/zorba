@@ -32,9 +32,13 @@ import com.bbytes.zorba.jobworker.domain.ZorbaData;
  * An implementation of {@link JsonSerializer} for {@link ZorbaData} class. This is based on the
  * {@link MapSerializer} class
  * 
+ * TODO : Handle serialization when the value is a Map<K,V>
+ * TODO : Test Custom Serializer with Custom Data
+ * 
  * @author Dhanush Gopinath
  * 
- * @version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 @SuppressWarnings("rawtypes")
 public class ZorbaDataSerializer extends JsonSerializer<ZorbaData> {
@@ -133,7 +137,6 @@ public class ZorbaDataSerializer extends JsonSerializer<ZorbaData> {
 			}
 			jgen.writeEndArray();
 		}
-
 		else if (cc instanceof Serializable) {
 			/*
 			 * This will take in the Serializer provided for the custom class by using

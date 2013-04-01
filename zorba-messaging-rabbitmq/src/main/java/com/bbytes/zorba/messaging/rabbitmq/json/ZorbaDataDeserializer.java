@@ -33,9 +33,13 @@ import com.bbytes.zorba.jobworker.domain.ZorbaData;
  * Implementation of {@link JsonDeserializer} to handle the creation of {@link ZorbaData} objects by
  * deserializing the JSON Data
  * 
+ * TODO : Handle serialization when the value is a Map<K,V>
+ * TODO : Test Custom Serializer with Custom Data
+ * 
  * @author Dhanush Gopinath
  * 
- * @version
+ * @version 0.0.1
+ * @since 0.0.1
  */
 public class ZorbaDataDeserializer extends JsonDeserializer<ZorbaData<String, Serializable>> {
 
