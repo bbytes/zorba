@@ -25,6 +25,7 @@ import java.util.HashMap;
  *
  * @version 
  */
+@SuppressWarnings("hiding")
 public class ZorbaData<String, T extends Serializable> extends HashMap<String, Serializable> {
 
 	/**

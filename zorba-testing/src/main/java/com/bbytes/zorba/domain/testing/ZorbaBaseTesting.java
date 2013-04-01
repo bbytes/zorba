@@ -109,7 +109,7 @@ public class ZorbaBaseTesting {
 		data.put("to", "dhanush@beyondbytes.co.in");
 		data.put("subject", "Unit Test Mail");
 		data.put("body", "Unit Test Mail");
-		data.put("an_array", new String [] {"1", "2"});
+//		data.put("an_array", new String [] {"1", "2"});
 		data.put("address", createDefaultCustomAddress());
 		mock.setData(data);
 		return mock;

@@ -26,8 +26,10 @@ import org.codehaus.jackson.annotate.JsonValue;
  */
 public enum Priority {
 
-	CRITICAL(4, "zorba.queue.pr.critical"), HIGH(3, "zorba.queue.pr.high"), MEDIUM(2, "zorba.queue.pr.medium"), LOW(1,
-			"zorba.queue.pr.low");
+	CRITICAL(0, "zorba.queue.pr.critical"), 
+	HIGH(1, "zorba.queue.pr.high"),
+	MEDIUM(2, "zorba.queue.pr.medium"), 
+	LOW(3,	"zorba.queue.pr.low");
 
 	int priority;
 	

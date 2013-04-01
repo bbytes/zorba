@@ -89,6 +89,16 @@ public class ZorbaDataSerializer extends JsonSerializer<ZorbaData> {
 
 	}
 
+	/**
+	 * Serailizes the value Element to a JSON String
+	 * 
+	 * @param valueElem
+	 * @param cc
+	 * @param jgen
+	 * @param provider
+	 * @throws JsonGenerationException
+	 * @throws IOException
+	 */
 	private void serializeValues(Object valueElem, Class<?> cc, JsonGenerator jgen, SerializerProvider provider)
 			throws JsonGenerationException, IOException {
 		if (valueElem == null)
@@ -126,7 +136,8 @@ public class ZorbaDataSerializer extends JsonSerializer<ZorbaData> {
 
 		else if (cc instanceof Serializable) {
 			/*
-			 * This will take in the Serializer provided for the custom class by using @JsonSerialize annotation
+			 * This will take in the Serializer provided for the custom class by using
+			 * @JsonSerialize annotation
 			 */
 			String json = zorbaObjectMapper.writeValueAsString(valueElem);
 			jgen.writeRawValue(json);
