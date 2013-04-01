@@ -166,6 +166,8 @@ public class ZorbaDataDeserializer extends JsonDeserializer<ZorbaData<String, Se
 			return booleanArray;
 		else if (!objectArray.isEmpty())
 			return objectArray;
+		else if (!serializableCustomArray.isEmpty())
+			return serializableCustomArray;
 		return null;
 	}
 

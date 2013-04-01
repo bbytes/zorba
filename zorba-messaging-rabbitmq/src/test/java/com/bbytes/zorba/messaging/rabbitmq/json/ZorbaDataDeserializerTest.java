@@ -61,7 +61,7 @@ public class ZorbaDataDeserializerTest extends ZorbaBaseTesting {
 	@Test
 	public void testAdvanced2() throws JsonGenerationException, JsonMappingException, IOException {
 		String json = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"bool_array\":[true,true,false,false],\"int_array\":[1,2,3,4],\"from\":\"dhanush@beyondbytes.co.in\",\"float_array\":[1.0,2.0,3.0],\"str_array\":[\"1\",\"2\"]}";
-		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArraysAndCustomClass();
+		ZorbaData<String, Serializable> data = createZorbaDataWithBasicPrimitiveArraysAndCustomClass();
 		ZorbaData<String, Serializable> deData = zorbaObjectMapper.readValue(json, ZorbaData.class);
 		assertNotNull(deData);
 		assertEquals(data.get("to"), deData.get("to"));
@@ -87,7 +87,7 @@ public class ZorbaDataDeserializerTest extends ZorbaBaseTesting {
 	@Test
 	public void testAdvanced4() throws JsonGenerationException, JsonMappingException, IOException {
 		String json = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"address\":{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},\"subject\":\"Unit Test Mail with Priority\",\"bool_array\":[true,true,false,false],\"int_array\":[1,2,3,4],\"from\":\"dhanush@beyondbytes.co.in\",\"float_array\":[1.0,2.0,3.0],\"str_array\":[\"1\",\"2\"]}";
-		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArraysAndCustomClass();
+		ZorbaData<String, Serializable> data = createZorbaDataWithBasicPrimitiveArraysAndCustomClass();
 		ZorbaData<String, Serializable> deData = zorbaObjectMapper.readValue(json, ZorbaData.class);
 		assertNotNull(deData);
 		assertEquals(data.get("to"), deData.get("to"));

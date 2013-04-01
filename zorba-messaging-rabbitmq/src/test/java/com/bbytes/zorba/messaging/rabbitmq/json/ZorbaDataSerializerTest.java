@@ -46,18 +46,16 @@ public class ZorbaDataSerializerTest extends ZorbaBaseTesting {
 	public void testAdvanced1() throws JsonGenerationException, JsonMappingException, IOException {
 		ZorbaData<String, Serializable> data = createZorbaDataWithCustomClass();
 		String json = zorbaObjectMapper.writeValueAsString(data);
-		System.out.println(json);
-//		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"from\":\"dhanush@beyondbytes.co.in\"}";
+		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"from\":\"dhanush@beyondbytes.co.in\", \"address\":{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"}}";
 //		assertEquals(expectedJson, json);
 		assertNotNull(json);
 	}
 	@Test
 	public void testAdvanced2() throws JsonGenerationException, JsonMappingException, IOException {
-		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArrays();
+		ZorbaData<String, Serializable> data = createZorbaDataWithBasicPrimitiveArrays();
 		String json = zorbaObjectMapper.writeValueAsString(data);
-		System.out.println(json);
-//		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"from\":\"dhanush@beyondbytes.co.in\"}";
-//		assertEquals(expectedJson, json);
+		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"bool_array\":[true,true,false,false],\"int_array\":[1,2,3,4],\"from\":\"dhanush@beyondbytes.co.in\",\"float_array\":[1.0,2.0,3.0],\"str_array\":[\"1\",\"2\"]}";
+		assertEquals(expectedJson, json);
 		assertNotNull(json);
 	}
 	
@@ -65,20 +63,17 @@ public class ZorbaDataSerializerTest extends ZorbaBaseTesting {
 	public void testAdvanced3() throws JsonGenerationException, JsonMappingException, IOException {
 		ZorbaData<String, Serializable> data = createZorbaDataWithAllArrays();
 		String json = zorbaObjectMapper.writeValueAsString(data);
-		System.out.println(json);
-//		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"from\":\"dhanush@beyondbytes.co.in\"}";
-//		assertEquals(expectedJson, json);
+		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"obj_array1\":[\"ob1\",\"ob2\"],\"obj_array2\":[11,22],\"subject\":\"Unit Test Mail with Priority\",\"bool_array\":[true,true,false,false],\"int_array\":[1,2,3,4],\"from\":\"dhanush@beyondbytes.co.in\",\"addresses\":[{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"}],\"float_array\":[1.0,2.0,3.0],\"str_array\":[\"1\",\"2\"]}";
+		assertEquals(expectedJson, json);
 		assertNotNull(json);
 	}
 	
-	
 	@Test
 	public void testAdvanced4() throws JsonGenerationException, JsonMappingException, IOException {
-		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArraysAndCustomClass();
+		ZorbaData<String, Serializable> data = createZorbaDataWithBasicPrimitiveArraysAndCustomClass();
 		String json = zorbaObjectMapper.writeValueAsString(data);
-		System.out.println(json);
-//		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"from\":\"dhanush@beyondbytes.co.in\"}";
-//		assertEquals(expectedJson, json);
+		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"address\":{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},\"subject\":\"Unit Test Mail with Priority\",\"bool_array\":[true,true,false,false],\"int_array\":[1,2,3,4],\"from\":\"dhanush@beyondbytes.co.in\",\"float_array\":[1.0,2.0,3.0],\"str_array\":[\"1\",\"2\"]}";
+		assertEquals(expectedJson, json);
 		assertNotNull(json);
 	}
 
@@ -86,8 +81,7 @@ public class ZorbaDataSerializerTest extends ZorbaBaseTesting {
 	public void testAdvanced5() throws JsonGenerationException, JsonMappingException, IOException {
 		ZorbaData<String, Serializable> data = createZorbaDataWithAllArraysAndCustomClass();
 		String json = zorbaObjectMapper.writeValueAsString(data);
-		System.out.println(json);
-//		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"subject\":\"Unit Test Mail with Priority\",\"from\":\"dhanush@beyondbytes.co.in\"}";
+		String expectedJson = "{\"to\":\"dhanush@beyondbytes.co.in\",\"body\":\"Unit Test Mail\",\"obj_array1\":[\"ob1\",\"ob2\"],\"obj_array2\":[11,22],\"address\":{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},\"subject\":\"Unit Test Mail with Priority\",\"bool_array\":[true,true,false,false],\"int_array\":[1,2,3,4],\"from\":\"dhanush@beyondbytes.co.in\",\"addresses\":[{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"},{\"@class\":\"com.bbytes.zorba.job.CustomAddress\",\"street\":\"3rs Main\",\"houseNo\":23,\"zipCode\":12344,\"locality\":\"OMBR\",\"town\":\"Bangalore\",\"district\":\"Bangalore\",\"state\":\"KA\"}],\"float_array\":[1.0,2.0,3.0],\"str_array\":[\"1\",\"2\"]}";
 //		assertEquals(expectedJson, json);
 		assertNotNull(json);
 	}
