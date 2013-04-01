@@ -79,10 +79,7 @@ public class ZorbaBaseTesting {
 	 * @return
 	 */
 	public static ZorbaRequest createZorbaRequestForSendMailJob(Priority p) {
-		ZorbaRequest mock = new ZorbaRequest();
-		mock.setJobName("Send-Mail-Job");
-		mock.setPriority(p);
-		mock.setId(UUID.randomUUID().toString());
+		ZorbaRequest mock = createBasicZorbaRequest(p, "Send-Mail-Job");
 		ZorbaData<String, Serializable> data = createBasicZorbaDataForSendMail();
 		mock.setData(data);
 		return mock;
@@ -109,16 +106,42 @@ public class ZorbaBaseTesting {
 	 * @param p
 	 * @return
 	 */
-	public static ZorbaRequest createZorbaRequestForSendMailJobWithAddress(Priority p) {
-		ZorbaRequest mock = new ZorbaRequest();
-		mock.setJobName("Send-Mail-Job");
-		mock.setPriority(p);
-		mock.setId(UUID.randomUUID().toString());
+	public static ZorbaRequest createZorbaRequestForSendMailJobWithBasicPrimitiveArraysAndAddress(Priority p) {
+		ZorbaRequest mock = createBasicZorbaRequest(p, "Send-Mail-Job");
 		ZorbaData<String, Serializable> data = createZorbaDataWithBasicPrimitiveArraysAndCustomClass();
 		mock.setData(data);
 		return mock;
 	}
 
+	/**
+	 * Creates a Mock {@link ZorbaRequest} with id, Priority and Job Name set
+	 * @param p
+	 * @param jobName TODO
+	 * @return
+	 */
+	public static ZorbaRequest createBasicZorbaRequest(Priority p, String jobName) {
+		ZorbaRequest mock = new ZorbaRequest();
+		mock.setJobName(jobName);
+		mock.setPriority(p);
+		mock.setId(UUID.randomUUID().toString());
+		return mock;
+	}
+
+	
+	/**
+	 * Returns a mock object for {@link SendMailJob} with {@link CustomAddress} object set in the
+	 * {@link ZorbaData} of the job
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public static ZorbaRequest createZorbaRequestForSendMailJobWithAllArraysAndAddress(Priority p) {
+		ZorbaRequest mock = createBasicZorbaRequest(p, "Send-Mail-Job");
+		ZorbaData<String, Serializable> data = createZorbaDataWithAllArraysAndCustomClass();
+		mock.setData(data);
+		return mock;
+	}
+	
 	/**
 	 * Return the {@link ZorbaData} mock object with basic data for send mail job and all primitive arrays only
 	 * @return

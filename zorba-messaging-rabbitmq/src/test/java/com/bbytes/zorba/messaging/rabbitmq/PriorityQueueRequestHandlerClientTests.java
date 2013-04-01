@@ -67,10 +67,17 @@ public class PriorityQueueRequestHandlerClientTests extends ZorbaBaseTesting {
 	
 	@Test
 	public void testSendZorbaRequestWithCustomObjectForSendMailJob() throws MessagingException, InterruptedException {
-		ZorbaRequest request = createZorbaRequestForSendMailJobWithAddress(Priority.CRITICAL);
+		ZorbaRequest request = createZorbaRequestForSendMailJobWithBasicPrimitiveArraysAndAddress(Priority.CRITICAL);
 		sender.send(request, Priority.CRITICAL);
 		//sleep for 10 sec so that the mail is actually sent
 		Thread.sleep(10000);
 	}
-
+	
+	@Test
+	public void testSendZorbaRequestWithCustomObjectForSendMailJob2() throws MessagingException, InterruptedException {
+		ZorbaRequest request = createZorbaRequestForSendMailJobWithAllArraysAndAddress(Priority.CRITICAL);
+		sender.send(request, Priority.CRITICAL);
+		//sleep for 10 sec so that the mail is actually sent
+		Thread.sleep(10000);
+	}
 }
