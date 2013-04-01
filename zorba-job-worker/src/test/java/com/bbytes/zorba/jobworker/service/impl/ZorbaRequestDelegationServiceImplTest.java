@@ -69,7 +69,7 @@ public class ZorbaRequestDelegationServiceImplTest extends ZorbaBaseTesting {
 	
 	@Test
 	public void testIsThreadAvailable() throws ProcessingException {
-		assertTrue(zorbaRequestDelegationService.isThreadAvailable(Priority.LOW));
+		assertTrue(zorbaRequestDelegationService.isThreadAvailable(Priority.CRITICAL));
 	}
 
 }

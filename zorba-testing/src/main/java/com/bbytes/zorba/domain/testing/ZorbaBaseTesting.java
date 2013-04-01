@@ -64,7 +64,7 @@ public class ZorbaBaseTesting {
 		mock.setJobName("Send-Mail-Job");
 		mock.setPriority(Priority.CRITICAL);
 		mock.setId(UUID.randomUUID().toString());
-		ZorbaData<String,Serializable> data = new ZorbaData<String,Serializable>();
+		ZorbaData<String, Serializable> data = new ZorbaData<String, Serializable>();
 		data.put("from", "dhanush@beyondbytes.co.in");
 		data.put("to", "dhanush@beyondbytes.co.in");
 		data.put("subject", "Unit Test Mail");
@@ -83,13 +83,23 @@ public class ZorbaBaseTesting {
 		mock.setJobName("Send-Mail-Job");
 		mock.setPriority(p);
 		mock.setId(UUID.randomUUID().toString());
-		ZorbaData<String,Serializable> data = new ZorbaData<String,Serializable>();
+		ZorbaData<String, Serializable> data = createBasicZorbaDataForSendMail();
+		mock.setData(data);
+		return mock;
+	}
+
+	/**
+	 * Returns a mock object of {@link ZorbaData} used for the Send Mail Job
+	 * 
+	 * @return
+	 */
+	public static ZorbaData<String, Serializable> createBasicZorbaDataForSendMail() {
+		ZorbaData<String, Serializable> data = new ZorbaData<String, Serializable>();
 		data.put("from", "dhanush@beyondbytes.co.in");
 		data.put("to", "dhanush@beyondbytes.co.in");
 		data.put("subject", "Unit Test Mail with Priority");
 		data.put("body", "Unit Test Mail");
-		mock.setData(data);
-		return mock;
+		return data;
 	}
 
 	/**
@@ -104,19 +114,89 @@ public class ZorbaBaseTesting {
 		mock.setJobName("Send-Mail-Job");
 		mock.setPriority(p);
 		mock.setId(UUID.randomUUID().toString());
-		ZorbaData<String,Serializable> data = new ZorbaData<String,Serializable>();
-		data.put("from", "dhanush@beyondbytes.co.in");
-		data.put("to", "dhanush@beyondbytes.co.in");
-		data.put("subject", "Unit Test Mail");
-		data.put("body", "Unit Test Mail");
-//		data.put("an_array", new String [] {"1", "2"});
-		data.put("address", createDefaultCustomAddress());
+		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArraysAndCustomClass();
 		mock.setData(data);
 		return mock;
 	}
 
 	/**
+	 * Returns a {@link ZorbaData} object with all primitive type arrays and custom object.
+	 * 
+	 * @return
+	 */
+	public static ZorbaData<String, Serializable> createZorbaDataWithAllPrimitiveArraysAndCustomClass() {
+		ZorbaData<String, Serializable> data = createBasicZorbaDataForSendMail();
+		data.put("str_array", new String[] { "1", "2" });
+		data.put("int_array", new Integer[] { 1, 2, 3, 4 });
+		data.put("float_array", new Float[] { 1f, 2f, 3f });
+		data.put("bool_array", new Boolean[] { true, true, false, false });
+		data.put("address", createDefaultCustomAddress());
+		return data;
+	}
+
+	/**
+	 * Return the {@link ZorbaData} mock object with basic data for send mail job and all primitive arrays only
+	 * @return
+	 */
+	public static ZorbaData<String, Serializable> createZorbaDataWithAllPrimitiveArrays() {
+		ZorbaData<String, Serializable> data = createBasicZorbaDataForSendMail();
+		data.put("str_array", new String[] { "1", "2" });
+		data.put("int_array", new Integer[] { 1, 2, 3, 4 });
+		data.put("float_array", new Float[] { 1f, 2f, 3f });
+		data.put("bool_array", new Boolean[] { true, true, false, false });
+		return data;
+	}
+
+	/**
+	 * Return the {@link ZorbaData} mock object with basic data for send mail job and all Arrays and Custom Class
+	 * @return
+	 */
+	public static ZorbaData<String, Serializable> createZorbaDataWithAllArraysAndCustomClass() {
+		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArraysAndCustomClass();
+		data.put("obj_array1", new Object[] { new String("ob1"), new String("ob2")});
+		data.put("obj_array2", new Object[] { new Integer(11), new Integer(22)});
+		data.put("addresses", createAddressArray());
+		return data;
+	}
+	
+	/**
+	 * Return the {@link ZorbaData} mock object with basic data for send mail job and all Arrays and Custom Class
+	 * @return
+	 */
+	public static ZorbaData<String, Serializable> createZorbaDataWithAllArrays() {
+		ZorbaData<String, Serializable> data = createZorbaDataWithAllPrimitiveArrays();
+		data.put("obj_array1", new Object[] { new String("ob1"), new String("ob2")});
+		data.put("obj_array2", new Object[] { new Integer(11), new Integer(22)});
+		data.put("addresses", createAddressArray());
+		return data;
+	}
+	
+	/**
+	 * Return the {@link ZorbaData} mock object with basic data for send mail job and a {@link CustomAddress} object
+	 * @return
+	 */
+	public static ZorbaData<String, Serializable> createZorbaDataWithCustomClass() {
+		ZorbaData<String, Serializable> data = createBasicZorbaDataForSendMail();
+		data.put("address", createDefaultCustomAddress());
+		return data;
+	}
+
+	/**
+	 * Creates the custom array mock object of {@link CustomAddress}
+	 * 
+	 * @return
+	 */
+	public static Serializable createAddressArray() {
+		CustomAddress[] array = new CustomAddress[5];
+		for (int i = 0; i < 5; i++) {
+			array[i] = createDefaultCustomAddress();
+		}
+		return array;
+	}
+
+	/**
 	 * Creates the default custom address
+	 * 
 	 * @return
 	 */
 	public static CustomAddress createDefaultCustomAddress() {

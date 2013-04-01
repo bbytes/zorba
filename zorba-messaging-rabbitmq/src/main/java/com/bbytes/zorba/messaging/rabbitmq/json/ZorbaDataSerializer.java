@@ -141,7 +141,6 @@ public class ZorbaDataSerializer extends JsonSerializer<ZorbaData> {
 			 */
 			String json = zorbaObjectMapper.writeValueAsString(valueElem);
 			jgen.writeRawValue(json);
-			System.out.println(valueElem);
 		}
 
 	}
