@@ -34,11 +34,15 @@ public class JobEvent extends ApplicationEvent {
 
 	private String jobExecutionId;
 
-	private Date eventTime= new Date();
-	
+	private Date eventTime = new Date();
+
 	private String stackTrace;
-	
+
 	private String description;
+
+	public JobEvent() {
+		super("");
+	}
 
 	public JobEvent(String jobExecutionId, JobStatusType jobStatus, IJob job, Object eventObject) {
 		super(eventObject);
@@ -90,7 +94,8 @@ public class JobEvent extends ApplicationEvent {
 	}
 
 	/**
-	 * @param stackTrace the stackTrace to set
+	 * @param stackTrace
+	 *            the stackTrace to set
 	 */
 	public void setStackTrace(String stackTrace) {
 		this.stackTrace = stackTrace;
@@ -104,7 +109,8 @@ public class JobEvent extends ApplicationEvent {
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description
+	 *            the description to set
 	 */
 	public void setDescription(String description) {
 		this.description = description;

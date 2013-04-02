@@ -43,10 +43,12 @@ public class EmbeddedServerTest {
 				}
 			};
 			th.start();
-			
+			Thread.currentThread().sleep(100000);
 		} catch (Exception e) {
 			logger.error("Error when starting", e);
 		}
+		
+		
 	}
 	
 	@Test
