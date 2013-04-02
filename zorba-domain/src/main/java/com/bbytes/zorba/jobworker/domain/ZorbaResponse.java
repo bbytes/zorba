@@ -16,7 +16,6 @@
 package com.bbytes.zorba.jobworker.domain;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * The domain class which encapsulates the response send back by zorba
@@ -32,7 +31,7 @@ public class ZorbaResponse implements Serializable{
 
 	protected String id;
 	protected String jobName;
-	protected Map<String, ?> result;
+	protected ZorbaData<String, Serializable> result;
 	protected String type;
 
 	public String getId() {
@@ -51,11 +50,11 @@ public class ZorbaResponse implements Serializable{
 		this.jobName = jobName;
 	}
 
-	public Map<String, ?> getResult() {
+	public ZorbaData<String, Serializable> getResult() {
 		return result;
 	}
 
-	public void setResult(Map<String, ?> result) {
+	public void setResult(ZorbaData<String, Serializable> result) {
 		this.result = result;
 	}
 

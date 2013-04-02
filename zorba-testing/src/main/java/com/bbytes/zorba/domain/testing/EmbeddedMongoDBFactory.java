@@ -61,7 +61,7 @@ public class EmbeddedMongoDBFactory implements IEmbeddedMongoDBFactory {
 			MongodConfig mongodConfig = new MongodConfig(Version.Main.V2_0, port, Network.localhostIsIPv6());
 			MongodStarter runtime = MongodStarter.getDefaultInstance();
 			mongodExecutable = runtime.prepare(mongodConfig);
-			MongodProcess mongod = mongodExecutable.start();
+			mongodExecutable.start();
 			Mongo mongo = new Mongo("localhost", port);
 			db = mongo.getDB(dbName);
 		} catch (IOException e) {

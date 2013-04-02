@@ -11,14 +11,12 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
 	<context:annotation-config />
-
-	<import resource="classpath*:spring/zorba-job-worker-context.xml"/>
 	<context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
-	<import resource="zorba-rabbitmq-context.xml" />
 	
+	<import resource="classpath*:spring/zorba-job-worker-context.xml"/>
 
 	<bean id="rabbitSender" class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender">
-
+		<property name="jobEventQueue" value="${zorba.event.queue}"/>
 	</bean>
 	<bean id="rabbitReceiver"
 		class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver">
@@ -55,6 +53,14 @@
 			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
 	</bean>
 
+		
+	<!-- Adding the listener class to Spring Container automatically registers 
+		it for events -->
+	<bean class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.JobEventListenerImpl" />
+	
+	<!-- load rabbit mq after resources at the last -->
+	<import resource="zorba-rabbitmq-context.xml" />
+	
 	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
 	<task:executor id="myExecutor" pool-size="15-30" queue-capacity="100"/>
 	<task:scheduler id="myScheduler" pool-size="20" />

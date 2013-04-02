@@ -37,8 +37,8 @@ import com.bbytes.zorba.job.SendMailJob;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ={ "classpath*:spring/zorba-testing-context.xml" })
-public class SendMailJobTesting {
-
+public class SendMailJobTest extends ZorbaBaseTesting{
+	
 	@Test
 	public void sendMail() throws JobExecutionException
 	{

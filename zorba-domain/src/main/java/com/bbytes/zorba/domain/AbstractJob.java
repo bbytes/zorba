@@ -13,10 +13,12 @@
  */
 package com.bbytes.zorba.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
 import com.bbytes.zorba.exception.JobExecutionException;
+import com.bbytes.zorba.jobworker.domain.ZorbaData;
 
 /**
  * Implements the basic method of {@link IJob} like creation date etc
@@ -27,6 +29,9 @@ import com.bbytes.zorba.exception.JobExecutionException;
  */
 public abstract class AbstractJob implements IJob {
 
+
+	private ZorbaData<String, Serializable> result = new ZorbaData<String, Serializable>();
+	
 	protected String jobId;
 
 	protected Date creationDate;
@@ -64,6 +69,16 @@ public abstract class AbstractJob implements IJob {
 
 	}
 
+	@Override
+	public ZorbaData<String, Serializable> getResult() {
+		return result;
+	}
+
+	@Override
+	public void setResult(ZorbaData<String, Serializable> result) {
+		this.result = result;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -78,6 +93,6 @@ public abstract class AbstractJob implements IJob {
 	 * @see com.bbytes.zorba.domain.IJob#execute(java.util.Map)
 	 */
 	@Override
-	public abstract void execute(Map<String, ?> data) throws JobExecutionException ;
+	public abstract void execute(Map<String, ? extends Serializable> data) throws JobExecutionException ;
 
 }

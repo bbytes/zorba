@@ -3,9 +3,15 @@
  */
 package com.bbytes.zorba.messaging.rabbitmq.impl;
 
+import java.io.UnsupportedEncodingException;
+
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
 import org.springframework.amqp.rabbit.core.RabbitOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.bbytes.zorba.domain.JobEvent;
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
@@ -25,19 +31,32 @@ public class RabbitMQSender implements IRabbitMQSender {
 	@Autowired
 	private RabbitOperations rabbitOperations;
 	
+	private String jobEventQueue = null;
+	
 
-	public void send(ZorbaRequest request, Priority priority)
+	public void send(final ZorbaRequest request, Priority priority)
 			throws MessagingException {
 		if(request!=null && priority!=null) {
 			String queueName = priority.getQueueName();
-			rabbitOperations.convertAndSend(queueName, request);
+			send(request, queueName);
 		}
 	}
 
-	public void send(ZorbaRequest request, String queueName)
+	public void send(final ZorbaRequest request, String queueName)
 			throws MessagingException {
 		if(request!=null && queueName!=null) {
-			rabbitOperations.convertAndSend(queueName, request);
+			final String replyQueue = queueName+".reply";
+			rabbitOperations.convertAndSend(queueName, request, new MessagePostProcessor() {
+				public Message postProcessMessage(Message message) throws AmqpException {
+					message.getMessageProperties().setReplyTo(replyQueue);
+					try {
+						message.getMessageProperties().setCorrelationId(request.getId().getBytes("UTF-8"));
+					} catch (UnsupportedEncodingException e) {
+						throw new AmqpException(e);
+					}
+					return message;
+				}
+			});
 		}
 	}
 
@@ -53,6 +72,19 @@ public class RabbitMQSender implements IRabbitMQSender {
 			return receiveResponse(queueName);
 		}
 		return null;
+	}
+
+	@Override
+	public void sendJobEvent(JobEvent jobEvent) throws MessagingException {
+		rabbitOperations.convertAndSend(jobEventQueue, jobEvent);
+	}
+	
+	public String getJobEventQueue() {
+		return jobEventQueue;
+	}
+	
+	public void setJobEventQueue(String jobEventQueue) {
+		this.jobEventQueue = jobEventQueue;
 	}
 
 }

@@ -13,8 +13,6 @@
 	<context:spring-configured />
 	<context:annotation-config />
 
-	<context:component-scan base-package="com.bbytes.zorba.domain.testing" />
-
 	<bean id="embeddedMongoDBFactory" class="com.bbytes.zorba.domain.testing.EmbeddedMongoDBFactory">
 		<constructor-arg name="databaseName" value="zorbaTest" />
 	</bean>
@@ -22,18 +20,20 @@
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg name="mongoDbFactory" ref="embeddedMongoDBFactory" />
 	</bean>
-	<bean id="zorbaRequest" class="com.bbytes.zorba.jobworker.domain.impl.ZorbaRequestImpl"
+	<bean id="zorbaRequest" class="com.bbytes.zorba.jobworker.domain.ZorbaRequest"
 		scope="prototype">
 		<property name="queueName" value="${test.zorbareq.queueName}" />
 		<property name="jobName" value="${test.zorbareq.jobName}" />
 		<property name="priority" value="${test.zorbareq.priority}" />
 		<property name="type" value="${test.zorbareq.type}" />
 	</bean>
-	<bean id="zorbaResponse"
-		class="com.bbytes.zorba.jobworker.domain.impl.ZorbaResponseImpl"
+	<bean id="zorbaResponse" class="com.bbytes.zorba.jobworker.domain.ZorbaResponse"
 		scope="prototype">
 		<property name="jobName" value="${test.zorbareq.jobName}" />
 		<property name="type" value="${test.zorbareq.type}" />
 	</bean>
+
+	<bean id="sendMailJob" class="com.bbytes.zorba.job.SendMailJob" />
+
 </beans>
 

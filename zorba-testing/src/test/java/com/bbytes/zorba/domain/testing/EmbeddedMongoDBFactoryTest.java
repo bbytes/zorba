@@ -14,7 +14,7 @@ import com.mongodb.DB;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations ={ "classpath*:spring/zorba-testing-context.xml" })
-public class EmbeddedMongoDBFactoryTest {
+public class EmbeddedMongoDBFactoryTest extends ZorbaBaseTesting{
 	
 	@Autowired
 	IEmbeddedMongoDBFactory embeddedMongoDBFactory;

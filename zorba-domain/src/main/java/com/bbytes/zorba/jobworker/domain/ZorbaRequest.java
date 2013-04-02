@@ -16,12 +16,11 @@
 package com.bbytes.zorba.jobworker.domain;
 
 import java.io.Serializable;
-import java.util.Map;
 
 import com.bbytes.zorba.domain.Priority;
 
 /**
- * Domain class for making a request to the Zorba Job Execution
+ * Domain class for making a request to the Zorba Job Execution.
  * 
  * @author Dhanush Gopinath
  * @version 0.0.1
@@ -34,7 +33,8 @@ public class ZorbaRequest implements Serializable{
 	protected String id;
 	protected String jobName;
 	protected String queueName;
-	protected Map<String, ?> data;
+	
+	protected ZorbaData<String,Serializable> data;
 	protected Priority priority;
 	protected String type;
 
@@ -61,14 +61,15 @@ public class ZorbaRequest implements Serializable{
 	public void setQueueName(String queueName) {
 		this.queueName = queueName;
 	}
-
-	public Map<String, ?> getData() {
+	
+	public ZorbaData<String,Serializable> getData() {
 		return data;
 	}
 
-	public void setData(Map<String, ?> data) {
+	public void setData(ZorbaData<String,Serializable> data) {
 		this.data = data;
 	}
+	
 
 	public Priority getPriority() {
 		return priority;

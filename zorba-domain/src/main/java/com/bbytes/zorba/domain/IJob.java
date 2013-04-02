@@ -13,11 +13,13 @@
  */
 package com.bbytes.zorba.domain;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import com.bbytes.zorba.exception.JobExecutionException;
+import com.bbytes.zorba.jobworker.domain.ZorbaData;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 
 /**
@@ -54,6 +56,20 @@ public interface IJob {
 	 * @param data
 	 * @throws JobExecutionException
 	 */
-	public void execute(Map<String, ?> data) throws JobExecutionException;
+	public void execute(Map<String, ? extends Serializable> data) throws JobExecutionException;
+
+	/**
+	 * Returns back the result as {@link ZorbaData}
+	 * 
+	 * @return
+	 */
+	ZorbaData<String, Serializable> getResult();
+
+	/**
+	 * Sets the result for this job;
+	 * 
+	 * @param result
+	 */
+	void setResult(ZorbaData<String, Serializable> result);
 
 }

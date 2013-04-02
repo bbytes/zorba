@@ -13,6 +13,9 @@
  */
 package com.bbytes.zorba.domain;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  * An {@link Enum} for priority of the queues
  * 
@@ -23,8 +26,10 @@ package com.bbytes.zorba.domain;
  */
 public enum Priority {
 
-	CRITICAL(4, "zorba.queue.pr.critical"), HIGH(3, "zorba.queue.pr.high"), MEDIUM(2, "zorba.queue.pr.medium"), LOW(1,
-			"zorba.queue.pr.low");
+	CRITICAL(0, "zorba.queue.pr.critical"), 
+	HIGH(1, "zorba.queue.pr.high"),
+	MEDIUM(2, "zorba.queue.pr.medium"), 
+	LOW(3,	"zorba.queue.pr.low");
 
 	int priority;
 	
@@ -41,5 +46,20 @@ public enum Priority {
 	
 	public String getQueueName() {
 		return queueName;
+	}
+	
+	@JsonValue
+	public int value() {
+	    return priority;
+	}
+	
+	@JsonCreator
+	public Priority fromValue(int priority) {
+		for(Priority p : values()) {
+			if(p.priority == priority) {
+				return p;
+			}
+		}
+		return null;
 	}
 }

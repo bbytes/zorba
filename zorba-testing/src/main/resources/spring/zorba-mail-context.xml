@@ -12,7 +12,6 @@
             http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
             http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
-	<context:component-scan base-package="com.javacodegeeks.spring.mail" />
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
@@ -31,5 +30,4 @@
 			</props>
 		</property>
 	</bean>
-
 </beans>

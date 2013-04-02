@@ -1,82 +1,82 @@
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:tx="http://www.springframework.org/schema/tx"
-    xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:util="http://www.springframework.org/schema/util"
-    xmlns:task="http://www.springframework.org/schema/task"
-    default-autowire="byName"
-    xmlns="http://www.springframework.org/schema/beans"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:task="http://www.springframework.org/schema/task"
+	default-autowire="byName" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd 
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
-		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd" >
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
-    <context:annotation-config />
+	<context:annotation-config />
 
-    <context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
+	<context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
 
-    <import resource="zorba-rabbitmq-test-context.xml" />
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:zorba-testing.properties</value>
+				<value>classpath:zorba-rabbitmq-test.properties</value>
+				<value>classpath*:zorba-job-worker-test.properties</value>
+			</list>
+		</property>
+	</bean>
 
-    <import resource="classpath*:spring/zorba-job-worker-test-context.xml" />
+	<import resource="classpath*:spring/zorba-job-worker-test-context.xml" />
+	<import resource="classpath*:spring/zorba-testing-context.xml" />
+	
+	<bean id="rabbitSender" class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender">
+		<property name="jobEventQueue" value="${zorba.event.queue}"/>
+	</bean>
 
-    <bean
-        id="rabbitSender"
-        class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender" >
-    </bean>
+	<bean id="rabbitReceiver"
+		class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver">
+	</bean>
 
-    <bean
-        id="rabbitReceiver"
-        class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver" >
-    </bean>
+	<bean id="queueServiceRest"
+		class="org.jboss.resteasy.client.spring.RestClientProxyFactoryBean"
+		p:baseUri="http://${rabbitmq.ipaddress}:${rabbitmq.management.port}/api"
+		p:httpClient-ref="restHttpClient"
+		p:serviceInterface="com.bbytes.zorba.messaging.rabbitmq.service.IQueueServiceRest" />
 
-    <bean
-        id="queueServiceRest"
-        class="org.jboss.resteasy.client.spring.RestClientProxyFactoryBean"
-        p:baseUri="http://${rabbitmq.ipaddress}:${rabbitmq.management.port}/api"
-        p:httpClient-ref="restHttpClient"
-        p:serviceInterface="com.bbytes.zorba.messaging.rabbitmq.service.IQueueServiceRest" />
+	<bean id="restHttpClient" factory-bean="httpClientFactory"
+		factory-method="getHttpClient" />
 
-    <bean
-        id="restHttpClient"
-        factory-bean="httpClientFactory"
-        factory-method="getHttpClient" />
+	<bean id="httpClientFactory"
+		class="com.bbytes.zorba.messaging.rabbitmq.utils.HttpClientFactoryBean">
+		<constructor-arg ref="httpClient" />
+		<constructor-arg ref="credentials" />
+	</bean>
 
-    <bean
-        id="httpClientFactory"
-        class="com.bbytes.zorba.messaging.rabbitmq.utils.HttpClientFactoryBean" >
+	<bean id="credentials"
+		class="org.apache.commons.httpclient.UsernamePasswordCredentials">
+		<constructor-arg value="${rabbitmq.username}" />
+		<constructor-arg value="${rabbitmq.password}" />
+	</bean>
 
-        <constructor-arg ref="httpClient" />
-        <constructor-arg ref="credentials" />
-    </bean>
+	<bean id="httpClient" class="org.apache.commons.httpclient.HttpClient">
+		<constructor-arg ref="httpClientParams" />
+	</bean>
 
-    <bean
-        id="credentials"
-        class="org.apache.commons.httpclient.UsernamePasswordCredentials" >
-        <constructor-arg value="${rabbitmq.username}" />
-        <constructor-arg value="${rabbitmq.password}" />
-    </bean>
-
-    <bean
-        id="httpClient"
-        class="org.apache.commons.httpclient.HttpClient" >
-
-        <constructor-arg ref="httpClientParams" />
-    </bean>
-
-    <bean
-        id="httpClientParams"
-        class="org.apache.commons.httpclient.params.HttpClientParams" >
-
-        <property
-            name="authenticationPreemptive"
-            value="true" />
-
-        <property
-            name="connectionManagerClass"
-            value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
-    </bean>
-
+	<bean id="httpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
+		<property name="authenticationPreemptive" value="true" />
+		<property name="connectionManagerClass"
+			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
+	</bean>
+		
+	<!-- Adding the listener class to Spring Container automatically registers 
+		it for events -->
+	<bean class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.JobEventListenerImpl" >
+		<property name="jobEventQueue" value="${zorba.event.queue}"/>
+	</bean>
+	
+	<!-- load rabbit mq after resources at the last -->
+	<import resource="zorba-rabbitmq-test-context.xml" />
+	
+	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
+	<task:executor id="myExecutor" pool-size="15-30" queue-capacity="100"/>
+	<task:scheduler id="myScheduler" pool-size="20" />
 </beans>

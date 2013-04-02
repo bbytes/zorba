@@ -29,24 +29,38 @@
 		<constructor-arg value="${rabbitmq.ipaddress}" />
 	</bean>
 
-	<rabbit:admin id="amqpAdmin" auto-startup="true"
-		connection-factory="rabbitConnectionFactory" />
-
 	<!-- Request Queues -->
 	<rabbit:queue id="pq.critical" name="${priority.queue.critical}" />
 	<rabbit:queue id="pq.high" name="${priority.queue.high}" />
 	<rabbit:queue id="pq.medium" name="${priority.queue.medium}" />
 	<rabbit:queue id="pq.low" name="${priority.queue.low}" />
 
+	<!-- Reply Queues for Priority Queues -->
+	<rabbit:queue id="pq.critical.reply" name="${priority.queue.critical}.reply" />
+	<rabbit:queue id="pq.high.reply" name="${priority.queue.high}.reply" />
+	<rabbit:queue id="pq.medium.reply" name="${priority.queue.medium}.reply" />
+	<rabbit:queue id="pq.low.reply" name="${priority.queue.low}.reply" />
+	
+	<rabbit:admin id="amqpAdmin" auto-startup="true" connection-factory="rabbitConnectionFactory" />
+	
+	<bean id="zorbaObjectMapper" class="com.bbytes.zorba.messaging.rabbitmq.json.ZorbaObjectMapper">
+	</bean>
 
 	<bean id="jsonMessageConverter"
-		class="org.springframework.amqp.support.converter.JsonMessageConverter" />
+		class="org.springframework.amqp.support.converter.JsonMessageConverter">
+		<property name="jsonObjectMapper" ref="zorbaObjectMapper"/>
+	</bean>
 
 	<!-- A template for sending messages and performing other commands to RabbitMQ -->
 
 	<bean id="rabbitTemplate" class="org.springframework.amqp.rabbit.core.RabbitTemplate"
 		p:connectionFactory-ref="rabbitConnectionFactory"
 		p:messageConverter-ref="jsonMessageConverter">
+	</bean>
+
+	<bean id="pqSynchReqHandler" class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchRequestHandlerImpl">
+		<property name="rabbitMQReceiver" ref="rabbitReceiver"/>
+		<property name="zorbaRquestDelegationService" ref="zorbaRquestDelegationService"/>
 	</bean>
 
 <!-- 	<bean id="pqRequestHandler"
@@ -69,7 +83,5 @@
 		error-handler="pqErrorHandler" xmlns="http://www.springframework.org/schema/rabbit">
 		<listener ref="pqRequestHandler" />
 	</listener-container> -->
-
-
 
 </beans>
