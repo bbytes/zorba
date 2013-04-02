@@ -24,16 +24,17 @@ import com.bbytes.zorba.domain.JobEvent;
 import com.bbytes.zorba.domain.JobStatusType;
 import com.bbytes.zorba.exception.JobExecutionException;
 import com.bbytes.zorba.jobworker.JobProcessor;
+import com.bbytes.zorba.jobworker.domain.JobExecutionContext;
 import com.bbytes.zorba.jobworker.domain.ZorbaData;
 import com.bbytes.zorba.jobworker.event.IJobEventPublisher;
 import com.bbytes.zorba.jobworker.exception.ProcessingException;
 
 /**
- * 
+ * Default implementation of {@link JobProcessor} for processing the Jobs
  * 
  * @author Dhanush Gopinath
  * 
- * @version
+ * @version 0.0.1
  */
 public class JobProcessorImpl implements JobProcessor {
 
@@ -50,7 +51,7 @@ public class JobProcessorImpl implements JobProcessor {
 	 * @see com.bbytes.zorba.jobworker.JobProcessor#processJob(java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void processJob(String jobExecutionId, String jobName, ZorbaData<String, Serializable> jobData) throws ProcessingException {
+	public void processJob(String jobExecutionId, String jobName, ZorbaData<String, Serializable> jobData, JobExecutionContext executionContext) throws ProcessingException {
 		if (jobName == null) {
 			String message = "jobName is null";
 			log.error(message);
@@ -58,9 +59,10 @@ public class JobProcessorImpl implements JobProcessor {
 		}
 		Class<IJob> jobClass = jobMap.get(jobName);
 		if(jobClass == null) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, null, this);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.FAILED, null, this);
 			String description = "Class for job name "+ jobName+" not registered";
 			failed.setDescription(description);
+			failed.setExecutionContext(executionContext);
 			eventPublisher.publish(failed);
 			log.error(description);
 			throw new ProcessingException(description);
@@ -69,22 +71,27 @@ public class JobProcessorImpl implements JobProcessor {
 		try {
 			job = jobClass.newInstance();
 			JobEvent started = new JobEvent(jobExecutionId, JobStatusType.RUNNNING, job, this);
+			started.setExecutionContext(executionContext);
 			eventPublisher.publish(started);
+			//execute the job
 			job.execute(jobData);
+			//publish the event after execution
 			JobEvent finished = new JobEvent(jobExecutionId, JobStatusType.COMPLETED, job, this);
+			finished.setExecutionContext(executionContext);
 			eventPublisher.publish(finished);
 		} catch (InstantiationException e) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.FAILED, job, this);
+			failed.setExecutionContext(executionContext);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
 			throw new ProcessingException(e);
 		} catch (IllegalAccessException e) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.FAILED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
 			throw new ProcessingException(e);
 		} catch (JobExecutionException e) {
-			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.STARTED, job, this);
+			JobEvent failed = new JobEvent(jobExecutionId, JobStatusType.FAILED, job, this);
 			eventPublisher.publish(failed);
 			log.error(e.getMessage(), e);
 			throw new ProcessingException(e);

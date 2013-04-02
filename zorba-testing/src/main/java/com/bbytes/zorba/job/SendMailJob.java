@@ -14,7 +14,6 @@
 package com.bbytes.zorba.job;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.context.ApplicationContext;
@@ -35,9 +34,6 @@ import com.bbytes.zorba.exception.JobExecutionException;
  */
 public class SendMailJob extends AbstractJob implements IJob {
 
-
-	private Map<String, String> result = new HashMap<String, String>();
-	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -63,13 +59,12 @@ public class SendMailJob extends AbstractJob implements IJob {
 		} catch (Exception e) {
 			throw new JobExecutionException(getJobName() + " failed to execute", e);
 		}
-		result.put("RESPONSE", "MAIL SENT");
+		getResult().put("RESPONSE", "MAIL SENT");
 	}
 
 	public void sendMail(String from, String to, String subject, String body, MailSender mailSender) {
 
 		SimpleMailMessage message = new SimpleMailMessage();
-
 		message.setFrom(from);
 		message.setTo(to);
 		message.setSubject(subject);
@@ -84,10 +79,5 @@ public class SendMailJob extends AbstractJob implements IJob {
 	@Override
 	public String getJobDescription() {
 		return "Job that sends email to the given address ,body and subject";
-	}
-
-	@Override
-	public Map<String, ? extends Serializable> getResult() {
-		return result;
 	}
 }

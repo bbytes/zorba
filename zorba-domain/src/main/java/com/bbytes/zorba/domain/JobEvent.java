@@ -17,6 +17,8 @@ import java.util.Date;
 
 import org.springframework.context.ApplicationEvent;
 
+import com.bbytes.zorba.jobworker.domain.JobExecutionContext;
+
 /**
  * The class holds all the information related to job events like job started , ended etc
  * 
@@ -30,6 +32,8 @@ public class JobEvent extends ApplicationEvent {
 
 	private JobStatusType jobStatus;
 
+	private JobExecutionContext executionContext;
+	
 	private IJob job;
 
 	private String jobExecutionId;
@@ -108,6 +112,23 @@ public class JobEvent extends ApplicationEvent {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	/**
+	 * Returns the {@link JobExecutionContext} object
+	 * 
+	 * @return
+	 */
+	public JobExecutionContext getExecutionContext() {
+		return executionContext;
+	}
+
+	/**
+	 * Sets the {@link JobExecutionContext}
+	 * @param executionContext
+	 */
+	public void setExecutionContext(JobExecutionContext executionContext) {
+		this.executionContext = executionContext;
 	}
 
 }

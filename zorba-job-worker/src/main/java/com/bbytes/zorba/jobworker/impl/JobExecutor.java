@@ -21,6 +21,7 @@ import org.springframework.core.task.TaskExecutor;
 import com.bbytes.zorba.domain.JobEvent;
 import com.bbytes.zorba.domain.JobStatusType;
 import com.bbytes.zorba.jobworker.JobProcessor;
+import com.bbytes.zorba.jobworker.domain.JobExecutionContext;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.event.IJobEventPublisher;
 import com.bbytes.zorba.jobworker.exception.ProcessingException;
@@ -30,7 +31,7 @@ import com.bbytes.zorba.jobworker.exception.ProcessingException;
  *
  * @author Dhanush Gopinath
  *
- * @version 
+ * @version 0.0.1
  */
 public class JobExecutor implements Runnable {
 	
@@ -72,9 +73,14 @@ public class JobExecutor implements Runnable {
 	@Override
 	public void run() {
 		try {
+			JobExecutionContext context = new JobExecutionContext();
+			context.setPriority(request.getPriority());
+			context.setRequestQueueName(request.getQueueName());
 			JobEvent started = new JobEvent(request.getId(), JobStatusType.STARTED, null, this);
+			started.setDescription(String.format("Execution of job %s started", request.getJobName()));
+			started.setExecutionContext(context);
 			eventPublisher.publish(started);
-			jobProcessor.processJob(request.getId(), request.getJobName(), request.getData());
+			jobProcessor.processJob(request.getId(), request.getJobName(), request.getData(), context);
 		} catch (ProcessingException e) {
 			log.error(e.getMessage(), e);
 		}

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.bbytes.zorba.domain.JobEvent;
+import com.bbytes.zorba.domain.JobStatusType;
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
@@ -103,4 +105,15 @@ public class RabbitMQSenderReceiverTest extends ZorbaBaseTesting {
 		assertNotNull(response);
 		assertEquals(id, response.getId());
 	}
+	
+	
+	@Test
+	public void testSendJobEvent() throws MessagingException, InterruptedException {
+		long queueSize = statsService.getQueueMessageSize(sender.getJobEventQueue());
+		JobEvent jobEvent = createMockJobEvent(JobStatusType.STARTED);
+		sender.sendJobEvent(jobEvent);
+		Thread.sleep(5000);
+		assertEquals(queueSize+1, statsService.getQueueMessageSize(sender.getJobEventQueue()));
+	}
+
 }

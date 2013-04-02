@@ -20,7 +20,7 @@ import java.io.Serializable;
 import com.bbytes.zorba.domain.Priority;
 
 /**
- * Domain class for making a request to the Zorba Job Execution
+ * Domain class for making a request to the Zorba Job Execution.
  * 
  * @author Dhanush Gopinath
  * @version 0.0.1

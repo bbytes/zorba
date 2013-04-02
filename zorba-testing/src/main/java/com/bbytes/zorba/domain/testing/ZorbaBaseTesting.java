@@ -20,7 +20,10 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
+import com.bbytes.zorba.domain.IJob;
+import com.bbytes.zorba.domain.JobEvent;
 import com.bbytes.zorba.domain.JobLifeCycle;
+import com.bbytes.zorba.domain.JobStatusType;
 import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.job.CustomAddress;
 import com.bbytes.zorba.job.SendMailJob;
@@ -226,6 +229,20 @@ public class ZorbaBaseTesting {
 		address.setTown("Bangalore");
 		address.setZipCode(12344);
 		return address;
+	}
+	
+
+	/**
+	 * Creates a mock {@link JobEvent} object 
+	 * @param jobStatus
+	 * @param eventSource
+	 * @return
+	 */
+	public static JobEvent createMockJobEvent(JobStatusType jobStatus) {
+		IJob sendMailJob = new SendMailJob();
+		//We set the event source as a String object to pass the serialization
+		JobEvent jobEvent = new JobEvent(UUID.randomUUID().toString(), jobStatus, sendMailJob, new String("Event Source"));
+		return jobEvent;
 	}
 
 }

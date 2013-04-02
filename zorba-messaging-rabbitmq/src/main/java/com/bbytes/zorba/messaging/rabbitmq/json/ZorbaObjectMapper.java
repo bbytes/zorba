@@ -15,6 +15,7 @@ package com.bbytes.zorba.messaging.rabbitmq.json;
 
 import org.codehaus.jackson.Version;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.SerializationConfig.Feature;
 import org.codehaus.jackson.map.module.SimpleModule;
 
 import com.bbytes.zorba.jobworker.domain.ZorbaData;
@@ -41,9 +42,13 @@ public class ZorbaObjectMapper extends ObjectMapper {
 	 */
 	public ZorbaObjectMapper() {
 		super();
+		// set the serialization config object without the feature FAIL_ON_EMPTY_BEANS so that the
+		// serialization will pass when there is empty objects with out serializers
+		setSerializationConfig(getSerializationConfig().without(Feature.FAIL_ON_EMPTY_BEANS));
 		SimpleModule zorbaModule = new SimpleModule("zorba", new Version(0, 0, 1, "SNAPSHOT"));
 		zorbaModule.addSerializer(new ZorbaDataSerializer(this));
 		zorbaModule.addDeserializer(ZorbaData.class, new ZorbaDataDeserializer(this));
 		registerModule(zorbaModule);
+
 	}
 }

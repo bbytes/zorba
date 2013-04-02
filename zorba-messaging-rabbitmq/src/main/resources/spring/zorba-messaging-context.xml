@@ -16,7 +16,7 @@
 	<import resource="classpath*:spring/zorba-job-worker-context.xml"/>
 
 	<bean id="rabbitSender" class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender">
-
+		<property name="jobEventQueue" value="${zorba.event.queue}"/>
 	</bean>
 	<bean id="rabbitReceiver"
 		class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver">
@@ -53,6 +53,11 @@
 			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
 	</bean>
 
+		
+	<!-- Adding the listener class to Spring Container automatically registers 
+		it for events -->
+	<bean class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.JobEventListenerImpl" />
+	
 	<!-- load rabbit mq after resources at the last -->
 	<import resource="zorba-rabbitmq-context.xml" />
 	

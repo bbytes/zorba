@@ -26,13 +26,9 @@
 	
 	<import resource="classpath*:spring/zorba-testing-context.xml" />
 	
-	<!-- Adding the listener class to Spring Container automatically registers 
-		it for events -->
-	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventListenerImpl" />
-
 	<!-- Event Publisher -->
 	<bean class="com.bbytes.zorba.jobworker.event.impl.JobEventPublisherImpl" />
-
+	<!-- Setting the jobMap with Send Mail job only for Testing -->
 	<bean class="com.bbytes.zorba.jobworker.impl.JobProcessorImpl">
 		<property name="jobMap">
 			<map>
