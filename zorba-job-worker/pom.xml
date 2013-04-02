@@ -6,12 +6,10 @@
 		<relativePath>../pom.xml</relativePath>
 		<groupId>com.bbytes</groupId>
 		<artifactId>zorba</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 
-
 	<artifactId>zorba-job-worker</artifactId>
-
 	<packaging>jar</packaging>
 
 	<name>zorba-job-worker</name>
