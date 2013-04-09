@@ -30,7 +30,7 @@ public class ZorbaJobEventQueueErrorHandlerImpl implements ZorbaJobEventQueueErr
 	@Override
 	public void handleError(Throwable t) {
 		// log error
-		
+		t.printStackTrace();
 	}
 
 

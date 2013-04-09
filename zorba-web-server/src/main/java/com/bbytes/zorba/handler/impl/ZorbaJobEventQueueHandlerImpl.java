@@ -33,7 +33,7 @@ import com.bbytes.zorba.persistence.JobLifeCycleDao;
  */
 public class ZorbaJobEventQueueHandlerImpl implements ZorbaJobEventQueueHandler {
 
-	@Autowired
+	@Autowired(required=true)
 	private JobLifeCycleDao jobLifeCycleDao;
 
 	/*
@@ -49,7 +49,7 @@ public class ZorbaJobEventQueueHandlerImpl implements ZorbaJobEventQueueHandler 
 
 		switch (event.getJobStatus()) {
 		case STARTED:
-			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobRunningEvent(event, jobLifeCycle);
+			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobStartedEvent(event);
 			break;
 		case COMPLETED:
 			jobLifeCycle = JobLifeCyclePersistenceUtil.onJobCompletedEvent(event, jobLifeCycle);

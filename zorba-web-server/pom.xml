@@ -13,6 +13,10 @@
 	<name>zorba-web-server</name>
 	<packaging>war</packaging>
 
+	<properties>
+		<spring.amqp.version>1.1.4.RELEASE</spring.amqp.version>
+	</properties>
+
 	<description>
 		Zorba Web Project, that will provide the UI interface for monitoring the jobs.
 	</description>
@@ -27,6 +31,13 @@
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-persistence</artifactId>
 			<version>0.0.2-SNAPSHOT</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.bbytes</groupId>
+			<artifactId>zorba-persistence-mongo</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Spring -->
@@ -72,6 +83,17 @@
 			<artifactId>spring-data-mongodb</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-amqp</artifactId>
+			<version>${spring.amqp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit</artifactId>
+			<version>${spring.amqp.version}</version>
+		</dependency>
+
 		<!-- Database -->
 		<!-- <dependency> <groupId>org.hsqldb</groupId> <artifactId>hsqldb</artifactId> 
 			<version>2.2.8</version> </dependency> -->
@@ -93,6 +115,9 @@
 			<artifactId>joda-time</artifactId>
 			<version>2.1</version>
 		</dependency>
+
+
+
 
 		<!-- JETTY DEPENDENCIES -->
 		<dependency>
