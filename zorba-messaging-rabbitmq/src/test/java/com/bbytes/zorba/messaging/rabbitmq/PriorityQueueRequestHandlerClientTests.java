@@ -1,6 +1,7 @@
 package com.bbytes.zorba.messaging.rabbitmq;
 
-import java.util.UUID;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.After;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import com.bbytes.zorba.domain.Priority;
 import com.bbytes.zorba.domain.testing.ZorbaBaseTesting;
 import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.jobworker.domain.ZorbaResponse;
+import com.bbytes.zorba.messaging.IQueueAdminService;
 import com.bbytes.zorba.messaging.exception.MessagingException;
 import com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQSender;
 import com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchRequestHandlerImpl;
@@ -21,7 +23,7 @@ import com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchReque
 /**
  * An unit test that will send requests to the priority queues, which will be then processed by
  * {@link PriorityQueueSynchRequestHandlerImpl} To run this test you need
- * {@link PriorityQueueRequestHandlerServerTests#test()} to be running. This tests will not be run
+ * {@link RequestHandlerServerTests#test()} to be running. This tests will not be run
  * when doing an mvn test
  * 
  * @author Dhanush Gopinath
@@ -29,55 +31,75 @@ import com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchReque
  * @version
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath*:/spring/zorba-messaging-test-context.xml" })
+@ContextConfiguration(locations = { "classpath*:/spring/zorba-rabbitmq-client-test-context.xml" })
 public class PriorityQueueRequestHandlerClientTests extends ZorbaBaseTesting {
 
-	@Autowired
-	ZorbaRequest zorbaRequest;
 
 	@Autowired
-	ZorbaResponse zorbaResponse;
-	
-	@Autowired
 	RabbitMQSender sender;
-	
+
+	@Autowired
+	IQueueAdminService qAdminService;
+
 	@Before
 	public void setUp() throws Exception {
+		// clear the queues before running the test
+		qAdminService.deleteQueueContent(Priority.CRITICAL.getQueueName());
+		qAdminService.deleteQueueContent(Priority.CRITICAL.getQueueName() + ".reply");
+		
+		qAdminService.deleteQueueContent(Priority.MEDIUM.getQueueName());
+		qAdminService.deleteQueueContent(Priority.MEDIUM.getQueueName() + ".reply");
 	}
 
 	@After
 	public void tearDown() throws Exception {
 	}
 
-	@Test
-	public void testSendZorbaRequestPriorityBySynchRequestHandler() throws MessagingException, InterruptedException {
-		Priority p = Priority.HIGH;
-		String id = UUID.randomUUID().toString();
-		zorbaRequest.setId(id);
-		sender.send(zorbaRequest,p);
-	}
-
+	
 	@Test
 	public void testSendZorbaRequestForSendMailJob() throws MessagingException, InterruptedException {
 		ZorbaRequest request = createZorbaRequestForSendMailJob(Priority.MEDIUM);
 		sender.send(request, Priority.MEDIUM);
-		//sleep for 10 sec so that the mail is actually sent
-		Thread.sleep(10000);
+		assertResponse(request);
 	}
-	
+
 	@Test
 	public void testSendZorbaRequestWithCustomObjectForSendMailJob() throws MessagingException, InterruptedException {
 		ZorbaRequest request = createZorbaRequestForSendMailJobWithBasicPrimitiveArraysAndAddress(Priority.CRITICAL);
 		sender.send(request, Priority.CRITICAL);
-		//sleep for 10 sec so that the mail is actually sent
-		Thread.sleep(10000);
+		assertResponse(request);
 	}
-	
+
 	@Test
 	public void testSendZorbaRequestWithCustomObjectForSendMailJob2() throws MessagingException, InterruptedException {
 		ZorbaRequest request = createZorbaRequestForSendMailJobWithAllArraysAndAddress(Priority.CRITICAL);
 		sender.send(request, Priority.CRITICAL);
-		//sleep for 10 sec so that the mail is actually sent
-		Thread.sleep(10000);
+		assertResponse(request);
 	}
+
+	/**
+	 * Tests the complete request response route which includes processing the job and getting the
+	 * result
+	 * 
+	 * @throws MessagingException
+	 * @throws InterruptedException
+	 */
+	@Test
+	public void testSendMailRoute() throws MessagingException, InterruptedException {
+		ZorbaRequest request = createZorbaRequestForSendMailJobWithAllArraysAndAddress(Priority.CRITICAL);
+		sender.send(request, Priority.CRITICAL);
+		assertResponse(request);
+	}
+
+	protected void assertResponse(ZorbaRequest request) throws MessagingException, InterruptedException {
+		// sleep for 30 sec so that the mail is actually sent and response is available in the reply
+		// queue
+		Thread.sleep(30000);
+		String queueName = request.getPriority().getQueueName() + ".reply";
+		ZorbaResponse response = sender.receiveResponse(queueName);
+		assertNotNull(response);
+		assertEquals(request.getId(), response.getId());
+		assertEquals("MAIL SENT", response.getResult().get("RESPONSE"));
+	}
+
 }

@@ -31,6 +31,8 @@ public class JobExecutionContext {
 	private String requestQueueName;
 
 	private Priority priority;
+	
+	private String correlationId;
 
 	private ZorbaData<String, Serializable> contextData;
 
@@ -62,5 +64,13 @@ public class JobExecutionContext {
 			return null;
 		}
 		return contextData.get(key);
+	}
+
+	public String getCorrelationId() {
+		return correlationId;
+	}
+
+	public void setCorrelationId(String correlationId) {
+		this.correlationId = correlationId;
 	}
 }

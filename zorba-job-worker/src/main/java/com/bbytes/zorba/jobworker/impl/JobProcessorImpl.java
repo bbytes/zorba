@@ -73,8 +73,10 @@ public class JobProcessorImpl implements JobProcessor {
 			JobEvent started = new JobEvent(jobExecutionId, JobStatusType.RUNNNING, job, this);
 			started.setExecutionContext(executionContext);
 			eventPublisher.publish(started);
+			log.debug("Going to execute the job :: " + job.getJobName());
 			//execute the job
 			job.execute(jobData);
+			log.debug("Finished Execution - Firing Completion Event :: " + job.getJobName());
 			//publish the event after execution
 			JobEvent finished = new JobEvent(jobExecutionId, JobStatusType.COMPLETED, job, this);
 			finished.setExecutionContext(executionContext);

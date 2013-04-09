@@ -34,7 +34,7 @@
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-testing</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -73,30 +73,30 @@
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-messaging</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-persistence</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-job-worker</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-job-worker</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-persistence-mongo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>

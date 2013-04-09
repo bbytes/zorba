@@ -10,9 +10,9 @@
 
 	<!--event queue name, all event messages are sent to this queue -->
 	<rabbit:queue name="${zorba.event.queue}" auto-delete="false" durable="true" />
+	<rabbit:queue name="${zorba.notify.queue}" auto-delete="false" durable="true" />
 
 	<!-- Provides connection to the RabbitMQ broker -->
-
 	<bean id="rabbitConnectionFactory"
 		class="org.springframework.amqp.rabbit.connection.CachingConnectionFactory"
 		p:password="${rabbitmq.password}" p:port="${rabbitmq.port}"
@@ -51,21 +51,5 @@
 		p:connectionFactory-ref="rabbitConnectionFactory"
 		p:messageConverter-ref="jsonMessageConverter">
 	</bean>
-
-	<bean id="pqSynchReqHandler"
-		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueSynchRequestHandlerImpl">
-		<property name="rabbitMQReceiver" ref="rabbitReceiver" />
-		<property name="zorbaRquestDelegationService" ref="zorbaRquestDelegationService" />
-	</bean>
-
-	<!-- <bean id="pqRequestHandler" class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueRequestHandlerImpl"> 
-		<property name="priorityQueueNames"> <array> <value>${priority.queue.critical}</value> 
-		<value>${priority.queue.high}</value> <value>${priority.queue.medium}</value> 
-		<value>${priority.queue.low}</value> </array> </property> </bean> <bean id="pqErrorHandler" 
-		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueErrorHandlerImpl" 
-		/> <listener-container concurrency="5" connection-factory="rabbitConnectionFactory" 
-		message-converter="jsonMessageConverter" error-handler="pqErrorHandler" xmlns="http://www.springframework.org/schema/rabbit"> 
-		<listener ref="pqRequestHandler" queue-names="${priority.queue.critical},${priority.queue.high},${priority.queue.medium},${priority.queue.low}" 
-		/> </listener-container> -->
 
 </beans>

@@ -35,13 +35,16 @@ public class RabbitMQAdminServiceTest {
 	}
 
 	@Test
-	public void testCreateDeleteQueue() {
+	public void testCreateQueue() throws InterruptedException {
 		boolean success = queueAdminService.createQueue("very.odd.name%$#@@");
 		Assert.assertTrue(success);
+		Thread.sleep(5000);
+	}
+
+	@Test
+	public void testDeleteQueue() {
 		boolean deleteSuccess = queueAdminService.deleteQueue("very.odd.name%$#@@");
 		Assert.assertTrue(deleteSuccess);
 	}
-
-	
 
 }

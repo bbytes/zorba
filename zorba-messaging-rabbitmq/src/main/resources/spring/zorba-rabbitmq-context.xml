@@ -63,25 +63,17 @@
 		<property name="zorbaRquestDelegationService" ref="zorbaRquestDelegationService"/>
 	</bean>
 
-<!-- 	<bean id="pqRequestHandler"
-		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueRequestHandlerImpl">
-		<property name="priorityQueueNames">
-			<array>
-				<value>${priority.queue.critical}</value>
-				<value>${priority.queue.high}</value>
-				<value>${priority.queue.medium}</value>
-				<value>${priority.queue.low}</value>
-			</array>
-		</property>
+	<bean id="qnHandler"
+		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.QueueNotificationHandler">
 	</bean>
-
-	<bean id="pqErrorHandler"
-		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.PriorityQueueErrorHandlerImpl" />
-
-	<listener-container concurrency="5"
+	
+	<bean id="errorHandler"
+		class="com.bbytes.zorba.messaging.rabbitmq.listener.impl.QueueErrorHandlerImpl" />
+		
+	<listener-container concurrency="1"
 		connection-factory="rabbitConnectionFactory" message-converter="jsonMessageConverter"
-		error-handler="pqErrorHandler" xmlns="http://www.springframework.org/schema/rabbit">
-		<listener ref="pqRequestHandler" />
-	</listener-container> -->
+		error-handler="errorHandler" xmlns="http://www.springframework.org/schema/rabbit">
+		<listener ref="qnHandler" queue-names="${zorba.notify.queue}" />
+	</listener-container>
 
 </beans>

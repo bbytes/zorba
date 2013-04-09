@@ -14,7 +14,6 @@
 package com.bbytes.zorba.messaging.rabbitmq.listener.impl;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,11 +80,12 @@ public class JobEventListenerImpl implements IJobEventListener {
 				IJob job = event.getJob();
 				if (executionContext != null) {
 					//send response only if the job execution context is set
-					ZorbaResponse response = createZorbaResponse(job);
+					ZorbaResponse response = createZorbaResponse(event.getJobExecutionId(),job);
 					String queueName = executionContext.getRequestQueueName();
 					if (queueName == null) {
 						queueName = executionContext.getPriority().getQueueName();
 					}
+					log.debug("Sending response for the job :: " + job.getJobName());
 					rabbitMQReceiver.sendResponse(response, queueName + ".reply");
 				}
 				job.setResult(null);
@@ -98,14 +98,15 @@ public class JobEventListenerImpl implements IJobEventListener {
 
 	/**
 	 * Creates the {@link ZorbaResponse} from {@link IJob}
+	 * @param responseId 
 	 * 
 	 * @param job
 	 * @return
 	 */
-	private ZorbaResponse createZorbaResponse(IJob job) {
+	private ZorbaResponse createZorbaResponse(String responseId, IJob job) {
 		ZorbaData<String, Serializable> result = job.getResult();
 		ZorbaResponse response = new ZorbaResponse();
-		response.setId(UUID.randomUUID().toString());
+		response.setId(responseId);
 		response.setJobName(job.getJobName());
 		response.setResult(result);
 		return response;

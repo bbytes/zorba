@@ -11,7 +11,6 @@
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
 	<context:annotation-config />
-
 	<context:component-scan base-package="com.bbytes.zorba.messaging.rabbitmq" />
 
 	<bean
@@ -35,37 +34,8 @@
 	<bean id="rabbitReceiver"
 		class="com.bbytes.zorba.messaging.rabbitmq.impl.RabbitMQReceiver">
 	</bean>
-
-	<bean id="queueServiceRest"
-		class="org.jboss.resteasy.client.spring.RestClientProxyFactoryBean"
-		p:baseUri="http://${rabbitmq.ipaddress}:${rabbitmq.management.port}/api"
-		p:httpClient-ref="restHttpClient"
-		p:serviceInterface="com.bbytes.zorba.messaging.rabbitmq.service.IQueueServiceRest" />
-
-	<bean id="restHttpClient" factory-bean="httpClientFactory"
-		factory-method="getHttpClient" />
-
-	<bean id="httpClientFactory"
-		class="com.bbytes.zorba.messaging.rabbitmq.utils.HttpClientFactoryBean">
-		<constructor-arg ref="httpClient" />
-		<constructor-arg ref="credentials" />
-	</bean>
-
-	<bean id="credentials"
-		class="org.apache.commons.httpclient.UsernamePasswordCredentials">
-		<constructor-arg value="${rabbitmq.username}" />
-		<constructor-arg value="${rabbitmq.password}" />
-	</bean>
-
-	<bean id="httpClient" class="org.apache.commons.httpclient.HttpClient">
-		<constructor-arg ref="httpClientParams" />
-	</bean>
-
-	<bean id="httpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
-		<property name="authenticationPreemptive" value="true" />
-		<property name="connectionManagerClass"
-			value="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" />
-	</bean>
+	
+	<import resource="zorba-rabbitmq-rest-test-context.xml"/>
 		
 	<!-- Adding the listener class to Spring Container automatically registers 
 		it for events -->
@@ -74,7 +44,7 @@
 	</bean>
 	
 	<!-- load rabbit mq after resources at the last -->
-	<import resource="zorba-rabbitmq-test-context.xml" />
+	<import resource="zorba-rabbitmq-server-test-context.xml" />
 	
 	<task:annotation-driven executor="myExecutor" scheduler="myScheduler" />
 	<task:executor id="myExecutor" pool-size="15-30" queue-capacity="100"/>

@@ -5,6 +5,7 @@ package com.bbytes.zorba.messaging.rabbitmq.impl;
 
 import java.io.UnsupportedEncodingException;
 
+import org.apache.log4j.Logger;
 import org.springframework.amqp.AmqpException;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
@@ -28,6 +29,8 @@ import com.bbytes.zorba.messaging.rabbitmq.IRabbitMQSender;
  */
 public class RabbitMQSender implements IRabbitMQSender {
 	
+	private static final Logger log = Logger.getLogger(RabbitMQSender.class);
+	
 	@Autowired
 	private RabbitOperations rabbitOperations;
 	
@@ -46,6 +49,7 @@ public class RabbitMQSender implements IRabbitMQSender {
 			throws MessagingException {
 		if(request!=null && queueName!=null) {
 			final String replyQueue = queueName+".reply";
+			log.debug(String.format("Sending request id %s to the queue %s . Reply received at %s", request.getId(), queueName, replyQueue));
 			rabbitOperations.convertAndSend(queueName, request, new MessagePostProcessor() {
 				public Message postProcessMessage(Message message) throws AmqpException {
 					message.getMessageProperties().setReplyTo(replyQueue);
@@ -76,6 +80,7 @@ public class RabbitMQSender implements IRabbitMQSender {
 
 	@Override
 	public void sendJobEvent(JobEvent jobEvent) throws MessagingException {
+		log.debug("Sending Job Event to the Job Queue ");
 		rabbitOperations.convertAndSend(jobEventQueue, jobEvent);
 	}
 	

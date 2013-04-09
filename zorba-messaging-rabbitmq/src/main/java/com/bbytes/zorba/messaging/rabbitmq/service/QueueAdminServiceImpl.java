@@ -13,12 +13,18 @@
  */
 package com.bbytes.zorba.messaging.rabbitmq.service;
 
+import java.io.Serializable;
+import java.util.UUID;
+
 import org.apache.log4j.Logger;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bbytes.zorba.jobworker.domain.ZorbaData;
+import com.bbytes.zorba.jobworker.domain.ZorbaRequest;
 import com.bbytes.zorba.messaging.IQueueAdminService;
+import com.bbytes.zorba.messaging.rabbitmq.IRabbitMQSender;
 
 /**
  * 
@@ -37,6 +43,9 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 	
 	@Autowired
 	private RabbitAdmin rabbitAdmin;
+	
+	@Autowired
+	private IRabbitMQSender sender;
 
 	/*
 	 * (non-Javadoc)
@@ -48,12 +57,26 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 		try {
 			org.springframework.amqp.core.Queue queue  = new org.springframework.amqp.core.Queue(queueName,true);
 			rabbitAdmin.declareQueue(queue);
+			//send message to the norify queue
+			ZorbaRequest req = createZorbaRequest(queueName, "CREATED");
+			sender.send(req, "zorba.queue.notify");
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			return false;
 		}
 
 		return true;
+	}
+
+	protected ZorbaRequest createZorbaRequest(String queueName, String event) {
+		ZorbaRequest req = new ZorbaRequest();
+		req.setId(UUID.randomUUID().toString());
+		req.setQueueName("zorba.queue.notify");
+		ZorbaData<String, Serializable> data = new ZorbaData<String, Serializable>();
+		data.put("queueName", queueName);
+		data.put("event", event);
+		req.setData(data);
+		return req;
 	}
 
 	/*
@@ -65,6 +88,8 @@ public class QueueAdminServiceImpl implements IQueueAdminService {
 	public boolean deleteQueue(String queueName) {
 		try {
 			rabbitAdmin.deleteQueue(queueName);
+			ZorbaRequest req = createZorbaRequest(queueName, "DELETED");
+			sender.send(req, "zorba.queue.notify");
 		} catch (Exception e) {
 			LOG.error(e.getMessage(), e);
 			return false;

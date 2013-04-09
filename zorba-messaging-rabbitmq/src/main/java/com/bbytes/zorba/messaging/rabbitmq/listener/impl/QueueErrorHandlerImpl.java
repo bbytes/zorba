@@ -24,7 +24,7 @@ import com.bbytes.zorba.messaging.rabbitmq.listener.ZorbaRequestErrorHandler;
  *
  * @version 
  */
-public class PriorityQueueErrorHandlerImpl implements ZorbaRequestErrorHandler {
+public class QueueErrorHandlerImpl implements ZorbaRequestErrorHandler {
 
 	/* (non-Javadoc)
 	 * @see org.springframework.util.ErrorHandler#handleError(java.lang.Throwable)

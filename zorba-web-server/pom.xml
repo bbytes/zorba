@@ -20,13 +20,13 @@
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-messaging</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-persistence</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<!-- Spring -->

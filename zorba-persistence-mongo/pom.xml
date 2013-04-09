@@ -50,17 +50,17 @@
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-persistence</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bbytes</groupId>
 			<artifactId>zorba-testing</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	
